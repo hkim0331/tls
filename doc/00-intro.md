@@ -44,15 +44,23 @@ Windows で VScode をスタートさせ、
 
 ```
 > wsl -d Ubuntu
-$ sudo apt update
-$ sudo apt install racket
-$ raco pkg install racket-langserver
+WSL$ sudo apt update
+WSL$ sudo apt install racket
+WSL$ raco pkg install racket-langserver
 ```
 
 VScode には次の二つのエクステンションを入れる。
 
 * WSL
 * Magick Racket
+
+Racket のフォルダで、`code .` で
+Windows 側の VScode が起動して、WSL のフォルダが開く。
+何がなんだかわからないみたいで、
+
+```
+WDL$ code .
+```
 
 他に、DrRacket っつう IDE をどさっと Windows に入れるって作戦もある。
 
@@ -64,8 +72,22 @@ WSL に相当するものはすでに Mac が持っているので、
 % brew install minimal-racket
 ```
 
+Magic Racket 利用するには racket-langserver を入れろってあるんだが、
+intel mac はエラーで終了、
+m1 mac はいつまで経ってもインストールが終わらなんで、止めちゃった。
 
-SublimeText
+```
+raco pkg install racket-langserver
+```
 
+なくてもプログラミング楽しめるが、
+VScode がクラッシュってうるさいので
+Settings の languageserver.enabled を false にする。
 
+"magicRacket.languageServer.enabled": false
 
+あるいは次の Sublime で。
+
+### SublimeTextで Racket
+
+Install Package で Racket を選ぶ。
