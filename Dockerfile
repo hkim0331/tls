@@ -1,4 +1,4 @@
-From ubuntu:jammy
+FROM ubuntu:22.10
 
 ARG USERNAME=vscode
 ARG USER_UID=1000
