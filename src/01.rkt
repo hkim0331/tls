@@ -1,13 +1,5 @@
-;;#lang racket
-
-(define atom?
- (lambda (x)
-  (and (not (pair? x)) (not (null? x)))))
-
-; (atom? 1)
-; (atom? '(1))
-; (atom? '())
-
+#lang racket
+(require "atom.rkt")
 
 (first '(1 2 3))
 
@@ -25,7 +17,4 @@
 (define orange 'apple)
 
 apple
-
 orange
-
-
