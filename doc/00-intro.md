@@ -1,9 +1,17 @@
 # The Little Schemer
 
-## C, FORTRAN, LISP
+## FORTRAN, LISP, C
 
+1960 年ごろ、三つの言語が生まれた。
+その後生まれて廃れた言語もたくさんあるが、
+この3つは生き残り、今もあらゆる言語に影響を及ぼしている。
 
 ## CommonLisp
+
+強力さのため、姿、形を変えた LISP がたくさん登場し、ユーザが混乱した。
+混乱を収集する規格として CommonLisp が制定された。1990年ごろ。
+
+その規格に則った実装が複数ある。
 
 * SBCL
 * CCL
@@ -14,9 +22,25 @@
 ubuntu$ apt search lisp
 ```
 
+CommonLisp を名乗るために守るべき部分が定めらたため、
+あっちの LISP で書いたプログラムがこっちの LISP では動かない
+ってことがなくなった。
+
+CommonLisp は、その後流行する **オブジェクト指向** でも力を発揮した。
+オブジェクト指向を名乗って登場した C++, Python, Ruby や SmallTalk よりも
+もっとも成功したのは CommonLisp と言う人もある。
+残念ながら hkimura 名前しか知らないが、
+CLOS(CommonLispObjectSystem) と言う。
+
 ## Scheme
 
+商用にも使えるのが CommonLisp の強みだが、プログラミングの学習用に
+そのエッセンスを絞って考えられた言語が Scheme.
+
+やはり Scheme にも複数の実装がある。
+
 * Racket
+* gauche
 * guile
 * mit-scheme
 * ...
@@ -26,13 +50,30 @@ ubuntu$ apt search lisp
 ubuntu$ apt search scheme
 ```
 
+最初は学習用に考えられたもんだが、研究、開発、商売にも使えているらしい。
+
+
 ## Racket
 
 ## The Little Schemer(TLS)
 
 今は、Scheme を実行できるアプリがすぐに手に入る時代だが、
-仮想的言語を仮定、実装から離れ、
-頭と紙と鉛筆でプログラミングを考えるというのが最初の本来の姿か。
+この本は、仮想的言語を仮定し、現実的なコンパイラやインタプリタの実装から離れ、
+ふざけてんのかと思うような軽い言い回しでプログラミングの理論にズブっと切り込む。
+頭と紙と鉛筆でプログラミングを徹底的に考えるというのが
+著者たちが最初に考えた読者のあるべき姿であると思われる。
+
+なにしろ、first/rest/cons/null?/eq? の5つだけで
+不完全性定理を理解しちゃおうとか、
+プログラミング言語を作っちゃおうとか、
+やることが「やさしい...」と段違い。
+
+斜めに読んじゃダメなんです。
+「前の章が理解できない時は次の章に進んじゃダメ」ってしっかり書いてある。
+今の学生は本を読まないし、
+読んだとしても理解できる部分だけをつまみ食いするだけだろ。
+そう言うのがありの分野もあるだろう。でもこの本は違うんです。
+
 
 ### Windows で Racket
 
@@ -56,13 +97,15 @@ VScode には次の二つのエクステンションを入れる。
 
 Racket のフォルダで、`code .` で
 Windows 側の VScode が起動して、WSL のフォルダが開く。
-何がなんだかわからないみたいで、
 
 ```
 WDL$ code .
 ```
 
 他に、DrRacket っつう IDE をどさっと Windows に入れるって作戦もある。
+
+ReplIt でも、Guile が利用できる。でも、ReplIt はいつもお忙しのようだ。
+
 
 ### Mac で Racket
 
@@ -86,7 +129,7 @@ Settings の languageserver.enabled を false にする。
 
 "magicRacket.languageServer.enabled": false
 
-あるいは次の Sublime で。
+あるいは次の Sublime がいいかも。
 
 ### SublimeTextで Racket
 

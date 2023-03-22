@@ -4,6 +4,9 @@
 - doc と src 二つにドキュメントを分けるのはめんどくさいぞ。
 - raco pkg install racket-langserver に失敗するが...
 
+## 0.1.5 - 2023-03-22
+- updated 00-intro.md 作文、もっと作文
+
 ## 0.1.3 - 2023-03-22
 - src/03-cons.rkt
 - VScode Dev Coontainer: raco pkg install racket-langserver に失敗するが...
