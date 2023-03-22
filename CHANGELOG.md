@@ -1,13 +1,14 @@
 # CHANGELOG
 
 
+## 0.1.1 - 2023-03-22
+- FIXED: README をタイポした。恥ずかしい。
+
 ## 2023-03-10
 
 - Teataro, Nanossa, aykz
   1,2,3章の途中まで
-
 - Jagaimo
-
 
 ## 2023-03-
 
