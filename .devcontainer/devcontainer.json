@@ -1,0 +1,23 @@
+{
+    "name": "Racket",
+
+    "dockerComposeFile": [
+        "../docker-compose.yml"
+    ],
+
+    "service": "racket",
+
+    "workspaceFolder": "/workspace",
+
+    "remoteUser": "vscode",
+
+    "customizations": {
+        "vscode": {
+            "settings": {
+            },
+            "extensions": [
+                "evzen-wybitul.magic-racket"
+            ]
+        }
+    }
+}
