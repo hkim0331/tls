@@ -1,20 +1,29 @@
 #lang racket
 
 (require (planet dmac/spin))
+(require web-server/templates)
 
 (get "/"
-  (lambda () "Hello!"))
+  (lambda () "Hello! next try /arg/:name"))
 
-(get "/hi"
-  (lambda (req) (string-append "Helo, " (params req 'name))))
+(get "/arg/:name"
+  (lambda (req) (string-append "You are:" (params req 'name))))
 
-(get "/hi/:name"
-  (lambda (req) (string-append "url args:" (params req 'name))))
+(get "/plus/:x/:y"
+  (lambda (req)
+    (let ((x (string->number (params req 'x)))
+          (y (string->number (params req 'y))))
+      (string-append "ans:" (number->string (+ x y))))))
 
-;; 引数が渡っておらず、req をプリントできない。
-;; ファイルに書けないのエラーのためか？
-(post "/oui"
-  (lambda (req) 
-    (string-append "see you later " (params req 'bye) "!")))
+(get "/form"
+  (lambda ()
+     "<form method='post'>
+      <input type='text' name='name'>
+      <input type='submit'>"))
+
+(post "/form"
+  (lambda (req)
+    (define name (params req 'name))
+    (include-template "template.html")))
 
 (run)

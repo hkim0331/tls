@@ -56,6 +56,28 @@ raco setup: --- post-installing collections ---                    [4:50:24]
 
 行末の [4:50:24] は経過時間じゃないようだ。
 
-## GET はいいが、POST がよくない
+## それでもエラーが docker on mac
 
-WSL では POST でもデータを渡せた。linux でのエラーの解析と対応が必要だ。
+```
+$ make-directory: cannot make directory
+  path: /usr/share/racket/pkgs/scribble-lib/scribble/doc/lang/compiled
+  system error: Permission denied; errno=13
+  compilation context...:
+   /usr/share/racket/pkgs/racket-index/scribblings/main/user/start.scrbl
+  context...:
+   /usr/share/racket/collects/compiler/private/cm-minima
+...
+...
+```
+
+## 構わず Web アプリ
+
+Web アプリは関数呼び出しをネットワーク上でやるもの。
+
+* 関数名は URL
+* 引数は URL についたり、フォームから渡す
+* 戻る　HTML をブラウザが解釈してページにする、あるいは JSON だったら別のことをする。
+
+基本は　GET と POST とテンプレート。
+
+<src/web-app-01.rkt>

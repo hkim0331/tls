@@ -1,7 +1,7 @@
 all:
-	@echo 'make build'
-	@echo 'make test-run'
-	@echo 'make clean'
+	@echo '* make build'
+	@echo '* make test-run'
+	@echo '* make clean'
 
 build: hkim0331/racket
 
