@@ -20,7 +20,7 @@ minila-racket のバージョンが 8.8 なのに、
 こんなじゃダメよね。こういう時、すぐに壊して作り直せるコンテナが便利だ。
 まだ終わらん。
 
-やっと終わった。15分。かかりすぎだな。
+やっと終わった。時間、かかりすぎだな。
 
 ```
 raco setup: 0 rendering: <pkgs>/racket-index/scribblings/main/search.scrbl
@@ -34,3 +34,26 @@ m64~/racket/the-little-schemer(develop|✚1…)
 ```
 
 Windows/WSL でやってみるか。
+
+## その前に docker で入れた racket 8.6 でトライ
+
+すんなりできた。数秒足らず。
+
+```
+$ raco pkg install https://github.com/dmac/spin.git
+Querying Git references for spin at https://github.com/dmac/spin.git
+Downloading repository https://github.com/dmac/spin.git commit f4dd095aecefbfbfbf12c9a542f9887ae252a28a
+raco setup: version: 8.6
+raco setup: platform: aarch64-linux [cs]
+...
+...
+...
+raco setup: 4 skipping: <pkgs>/racket-index/scribblings/main/local-redirect.scrbl
+raco setup: 1 skipping: <pkgs>/racket-index/scribblings/main/search.scrbl
+raco setup: --- installing collections ---                         [4:50:24]
+raco setup: --- post-installing collections ---                    [4:50:24]
+```
+
+行末の [4:50:24] は経過時間じゃないようだ。
+
+## GET はいいが、POST がよくない
