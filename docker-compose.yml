@@ -5,6 +5,6 @@ services:
     restart: always
     user: vscode
     volumes:
-      - ./src:/workspace:cached
+      - .:/workspace:cached
     working_dir: /workspace
     command: /bin/sh -c "while sleep 1000; do :; done"
