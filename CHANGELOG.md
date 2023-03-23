@@ -4,6 +4,10 @@
 - doc と src 二つにドキュメントを分けるのはめんどくさいぞ。
 - raco pkg install racket-langserver できるようになったが、
   windows wsl2 で体験するような関数のヘルプがポップアップしない。
+  例えば、wsl2 vscode では null? にホバリングすると
+  imported from "racket" - online docs　以下の小さいウィンドウが出る。
+  でも multipass docker では imported from racket のみ。
+- multipass　docker　racket でXQuartz が起動するのはなぜ？
 - multipass docker でイメージを作れるか？
 - multipass docker で作ったイメージを DockerHUB にアップロードする方法？
 
