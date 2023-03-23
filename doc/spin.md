@@ -57,3 +57,5 @@ raco setup: --- post-installing collections ---                    [4:50:24]
 行末の [4:50:24] は経過時間じゃないようだ。
 
 ## GET はいいが、POST がよくない
+
+WSL では POST でもデータを渡せた。linux でのエラーの解析と対応が必要だ。

@@ -15,7 +15,6 @@
 ;; ファイルに書けないのエラーのためか？
 (post "/oui"
   (lambda (req) 
-    (print req)
-    (string-append "see you later " (params req 'bye))))
+    (string-append "see you later " (params req 'bye) "!")))
 
 (run)
