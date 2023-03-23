@@ -2,7 +2,25 @@
 
 ## Unreleased
 - doc と src 二つにドキュメントを分けるのはめんどくさいぞ。
-- raco pkg install racket-langserver に失敗するが...
+- raco pkg install racket-langserver できるようになったが、
+  windows wsl2 で体験するような関数のヘルプがポップアップしない。
+  例えば、wsl2 vscode では null? にホバリングすると
+  imported from "racket" - online docs　以下の小さいウィンドウが出る。
+  でも multipass docker では imported from racket のみ。
+- multipass　docker　racket でXQuartz が起動するのはなぜ？
+- multipass docker でイメージを作れるか？
+- multipass docker で作ったイメージを DockerHUB にアップロードする方法？
+
+## 0.1.7 - 2023-03-23
+- added doc/spin.md and src/web-app-01.rkt
+
+## 0.1.6 - 2023-03-23
+- hkim0331/racket イメージ
+  FROM ubuntu:22.10
+  add git sqlite libedit2 racket
+  raco pkg install --auto racket-langserver
+- Docker Desktop の Recommend fixes は 22.10 を 23.04 にあげろがひとつ。
+- pushed to DockerHUB as hkim0331/racket, 724MB
 
 ## 0.1.5 - 2023-03-22
 - updated 00-intro.md 作文、もっと作文
