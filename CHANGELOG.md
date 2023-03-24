@@ -10,11 +10,21 @@
 - multipass docker racket でXQuartz が起動するのはなぜ？
 - multipass docker でイメージを作れるか？
 
+
 ## 0.2.10-SNAPSHOT
+### refactor
+- database  ::= document の集まり
+- document  ::= key-value の集まり
+- key-value ::= (key key-value) でキー、
+　　　　　　　　　 (val key-value) でバリューが取り出せるオブジェクト
+- find/find-all を find-all を基本形に。
+- module で。provide するのは init, insert, find, list, 
+
+### db first-design
 - db.rkt find が動くようになった。次は find-all
 - Magic Racket の選んで alt+enter はめんどくさい。
   それよりも、右上ボタンの Load file in REPL のほうかな。
- 
+
 ## 0.1.9 - 2023-03-24
 - <meta charset='UTF-8'> to template.html
 - windows/wsl docker で動作チェック
