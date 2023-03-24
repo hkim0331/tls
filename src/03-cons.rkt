@@ -42,3 +42,5 @@
           (plum pear cherry)
           (grape raisin pea)
           (bean carrot eggplant)))
+
+;; insertR, insertL, subst
