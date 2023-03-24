@@ -11,6 +11,13 @@
 - multipass docker でイメージを作れるか？
 
 
+## 0.1.9 - 2023-03-24
+- <meta charset='UTF-8'> to template.html
+- windows/wsl docker で動作チェック
+  $ sudo dockerd
+  $ code .
+  <Reopen in Container>
+
 ## 0.1.8 - 2023-03-24
 - https://zenn.dev/yyu/articles/3f900eaa2aa860 を参考に、
   AMD/ARM の docker イメージを作る。
