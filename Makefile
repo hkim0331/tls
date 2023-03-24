@@ -18,8 +18,8 @@ arm64:
 	docker buildx build --platform linux/arm64 --push -t ${TAG}-$@ .
 
 manifest:
-#	pull amd64 image on arm64 host
-	docker pull ${TAG}-amd64
+#	pull both images on one host
+#	docker pull ${TAG}-amd64
 	docker manifest create ${TAG} ${TAG}-amd64 ${TAG}-arm64
 	docker manifest push ${TAG}
 
