@@ -11,6 +11,10 @@
 - multipass docker でイメージを作れるか？
 - multipass docker で作ったイメージを DockerHUB にアップロードする方法？
 
+
+## 0.1.8-SNAPSHOT
+- img タグを理解させるには？
+
 ## 0.1.7 - 2023-03-23
 - added doc/spin.md and src/web-app-01.rkt
 
