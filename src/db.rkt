@@ -110,5 +110,5 @@
 (find string=? 'given-name "hiroshi")
 (find string=? 'given-name "yasuko")
 
-(define find-all-aux)
-(define find-all)
+; (define find-all-aux)
+; (define find-all)
