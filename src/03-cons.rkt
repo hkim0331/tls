@@ -42,3 +42,13 @@
           (plum pear cherry)
           (grape raisin pea)
           (bean carrot eggplant)))
+
+;; insertR, insertL, subst
+(define insertR
+  (lambda (new old lat)
+    (cond
+      ((null? lat) '())
+      ((eq? old (first lat)) (cons old (cons new lat)))
+      (else (cons (first lat) (insertR new old (rest lat)))))))
+
+(insertR 'topping 'fudge '(ice cream fudge for dessert))
