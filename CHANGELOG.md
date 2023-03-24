@@ -5,11 +5,17 @@
 - raco pkg install racket-langserver できるようになったが、
   windows wsl2 で体験するような関数のヘルプがポップアップしない。
   例えば、wsl2 vscode では null? にホバリングすると
-  imported from "racket" - online docs　以下の小さいウィンドウが出る。
+  imported from "racket" - online docs 以下の小さいウィンドウが出る。
   でも multipass docker では imported from racket のみ。
-- multipass　docker　racket でXQuartz が起動するのはなぜ？
+- multipass docker racket でXQuartz が起動するのはなぜ？
 - multipass docker でイメージを作れるか？
-- multipass docker で作ったイメージを DockerHUB にアップロードする方法？
+
+
+## 0.1.8 - 2023-03-24
+- https://zenn.dev/yyu/articles/3f900eaa2aa860 を参考に、
+  AMD/ARM の docker イメージを作る。
+  2 台で別々に実行すれば2倍速でできるか。
+  今回は m64 の buildx で amd/arm のイメージを作った。
 
 ## 0.1.7 - 2023-03-23
 - added doc/spin.md and src/web-app-01.rkt
