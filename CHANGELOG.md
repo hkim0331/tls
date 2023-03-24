@@ -11,16 +11,16 @@
 - multipass docker でイメージを作れるか？
 
 
-## 0.2.10-SNAPSHOT
-### refactor
+## 0.2.10 - 2023-03-24
+### BREAKING entries, (find) を変更
 - database  ::= document の集まり
-- document  ::= key-value の集まり
-- key-value ::= (key key-value) でキー、
-　　　　　　　　　 (val key-value) でバリューが取り出せるオブジェクト
-- find/find-all を find-all を基本形に。
+- documents ::= entry の集まり
+- entries   ::= (key entry) でキー、
+                (val entry) でバリューが取り出せる entry の集まり
+- find-all を基本形に。find-one は　(first (find-one)) でよい
 - module で。provide するのは init, insert, find, list, 
 
-### db first-design
+## db
 - db.rkt find が動くようになった。次は find-all
 - Magic Racket の選んで alt+enter はめんどくさい。
   それよりも、右上ボタンの Load file in REPL のほうかな。
