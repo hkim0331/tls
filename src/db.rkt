@@ -4,9 +4,9 @@
 ;; ブラウザだけじゃなく、端末からも操作できるように。
 ;; td は todo とも、todays ともどっちでも。
 ;;
-;; * database  ::= document の集まり
-;; * document  ::= key-value の集まり
-;; * key-value ::= (key kv) でキー、(valye kv) でバリューが取り出せる kv の集まり
+;; * database ::= document の集まり
+;; * document ::= entry の集まり
+;; * entry    ::= (key entry) でキー、(valye entry) でバリューが取り出せるオブジェクト
 ;;
 ;; require
 ;; $ raco pkg install date
@@ -17,24 +17,9 @@
   find
   documents
   load
-  save
-  )
+  save)
 
 (require date)
-
-; > (current-date-string-iso-8601 #t)
-; "2023-03-24T07:08:48Z"
-; > (current-date-string-iso-8601 #f)
-; "2023-03-24T07:11:32Z"
-;
-; > (local-current-date)
-; (date* 20 9 7 24 3 2023 5 82 #f 0 17000000 "")
-;
-; > (current-date-string-rfc-2822)
-; "Fri, 24 Mar 2023 07:09:59 Z"
-;
-; > (current-time)
-; (tm:time 'time-utc 737000000 1679641685)
 
 (define nil '())
 (define *db* nil)
@@ -43,46 +28,51 @@
   (lambda ()
     (set! *db* nil)))
 
-(set! *db* "what happened?")
 (init)
-*db*
 
-(define key (lambda (obj) (car obj)))
-(define val (lambda (obj) (cdr obj)))
+(define key (lambda (entry) (car entry)))
+(define val (lambda (entry) (cdr entry)))
 
-(define make-kv
+(define make-entry
   (lambda (key value)
     (cons key value)))
 
-(define find-kv
-  (lambda (k doc)
-    (filter (lambda (kv) (eq? k (key kv))) doc)))
+(define null-or-first
+  (lambda (obj)
+    (if (null? obj)
+      '()
+      (first obj))))
 
-;; use list?
+(define find-entry
+  (lambda (k doc)
+    (null-or-first (filter (lambda (entry) (eq? k (key entry))) doc))))
+
 (define make-doc
   (lambda (key value . more)
     (if (null? more)
-      (list (make-kv key value))
+      (list (make-entry key value))
       (cons
-        (make-kv key value)
+        (make-entry key value)
         (apply make-doc more)))))
 
 (make-doc 'a 1)
 (make-doc 'a 1 'b 2)
 (make-doc 'a 1 'b 2 'c '(x y z))
-(find-kv 'b '((a . 1) (b . 2) (c x y z)))
+
+(find-entry 'b '((a . 1) (b . 2) (c x y z))) ;=> '(b . 2)
+(find-entry 'z '((a . 1) (b . 2) (c x y z))) ;=> '()
 
 (define make-datetime
  (lambda ()
-  (make-kv  'datetime (current-date-string-iso-8601 #t))))
+  (make-kv 'datetime (current-date-string-iso-8601 #t))))
 
-(make-datetime)
+; (make-datetime)
 
 (define add-datetime
   (lambda (data)
     (cons (make-datetime) data)))
 
-(add-datetime '((a . 1) (b . 2)))
+; (add-datetime '((a . 1) (b . 2)))
 
 (define insert
   (lambda (data)
@@ -94,31 +84,26 @@
 (insert (make-doc 'given-name "hiroshi" 'family-name "kimura"))
 (insert (make-doc 'given-name "miyuki" 'family-name "kimura"))
 
-(define kv
+(define entry
   (lambda (k d)
-    (first (filter (lambda (d) (eq? k (car d))) d))))
+    (null-or-first (filter (lambda (d) (eq? k (car d))) d))))
 
-(kv 'given-name (first *db*))
+(first *db*)
+(entry 'given-name (first *db*))
 
 (define find?
   (lambda (doc f key value)
-    (let ((entry (kv key doc)))
-      (and (not (empty? entry))
-           (f value (val entry))))))
+    (let ((e (entry key doc)))
+      (and (not (empty? e)) (f value (val e))))))
 
 (find? (first *db*) string=? 'given-name "hiroshi")
+(find? (first *db*) string=? 'given-name "miyuki")
 
 (define find
   (lambda (f key value)
     (filter (lambda (doc) (find? doc f key value)) *db*)))
 
-(find string=? 'given-name "hiroshi")
-(first (find string=? 'family-name "kimura"))
-(find string=? 'given-name "hiroshi")
-
 (define documents (lambda () *db*))
-
-(documents)
 
 (define save-to
   (lambda (filename)
@@ -130,8 +115,6 @@
 (define save
   (lambda () (save-to "scmdb.dat")))
 
-(save)
-
 (define load-from
   (lambda (filename)
     (call-with-input-file 
@@ -140,7 +123,13 @@
 
 (define load
   (lambda () (load-from "scmdb.dat")))
-  
-(init)
-(load)
-(documents)
+
+(find string=? 'given-name "aoi")
+(first (find string=? 'family-name "kimura"))
+(find string=? 'given-name "hiroshi")
+(find string<? 'datetime "2023")
+(find string<? 'datetime "2024")
+
+(insert (make-doc 'wbc "japan" 'result "gold"))
+(find string=? 'wbc "japan")
+(save)
