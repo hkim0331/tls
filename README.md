@@ -34,42 +34,52 @@ C や Python などとはちょっと違った Scheme で、
 
 ## 準備
 
-### macos で minimal-racket は大変
-
 「Scheme手習い」は理想的な Scheme 言語を仮想して、
 実装とは離れて、紙と鉛筆、頭の中で、計算の過程を考えるみたいなことをやる。
+
 それ、できる人には相当なトレーニングになるんだろうが、
 俺たち一般人には辛い。で、やっぱ、適当な処理系、
 作成したコードを実行できるアプリがあったほうが楽だ。
 
-普通は macos はいろいろ楽なんだけど、Scheme の処理系として Racket を選ぶと苦労する。
+### macos で minimal-racket は大変
+
+普通は macos はいろいろ楽なんだけど、Scheme の処理系として minimal-racket を選ぶと苦労する。
 
 ```
 % brew install minimal-racket
 ```
 
-でバージョン 8.8 の最新版がインストールできるんだけど、その後、外部ライブラリ、例えば
-date をインストールすべく、
+これでバージョン 8.8 の最新版がインストールできる。しかし、その後、外部ライブラリ、
+VScode の Magic Racket がインストールしてくれっていう
+racket-langserver をインストールすべく、
 
 ```
-% raco pkg install date
+% raco pkg install racket-langserver
 ```
 
 ってやると延々とダウンロードとコンパイルが始まって、終わらない。
-こっちのライブラリがあっちのライブラリに依存してて、それを解決しようとして、
-また別のライブラリをインストール、、、30 分経っても終わらない。これ、よくない。
+ついには、投げやりなメッセージで終了する。
 
-mac では Racket 以外の Scheme 処理系を選ぶべきかもな。
-でも VScode の Scheme 用機能拡張モジュール Magic Racket は名前の通り、
-Racket を相手にしたものだ。違うモジュール探すか？
+```
+raco pkg install: packages installed, although setup reported errors
+```
 
-こんなんするなら、Docker した方が楽かも。
+VScode 立ち上げると、
+
+```
+The Racket Language Client server crashed 5 times in the last 3m...
+```
+
+mac では Racket 以外の Scheme 処理系を選ぶか、次の VScode DevContaier がいいかも。
+
 
 ### VScode DevContainer
 
 DockerDesktop が macos にインストールされているって前提で。
 
-このリポジトリをダウンロードしたら、VScode で開く。
+このリポジトリ 
+https://github.com/hkim0331/tls.git
+をダウンロードしたら、VScode で開く。
 
 ```
 % code .
@@ -77,12 +87,11 @@ DockerDesktop が macos にインストールされているって前提で。
 
 「DevContainer で開き直しますか」みたいに聞かれるので、そのまま YES.
 
- Docker イメージのダウンロードに時間はかかるが、一旦ダウンロードしてしまえば
- あとは簡単。raco pkg install date もさらっと終わる。こっちがおすすめ。
+Docker イメージのダウンロードに時間はかかるが、最初の一回だけ。あとは簡単。
 
 ### Windows だと？
 
-Windows に直接 Racket 入れるよりも、WSL 使うのがいいですよ。
+Windows に直接 Racket 入れるよりも、WSL 使うのがいい。
 WSL で ubuntu 入れておき、
 
 ```
@@ -95,11 +104,11 @@ $ sudo apt install racket
 $ code .
 ```
 
-必要なライブラリ(例えば date)は、
+必要なライブラリ(例えば racket-langsever)は、
 
 ```
-$ raco pkg install date
+$ raco pkg install racket-langserver
 ```
 で。
 
-もちろん、WSL に docker 入れて、上と同じくやるのもよい。
+docker やってもよい。Windows じゃなく、WSL に docker 入れるのがおすすめ。

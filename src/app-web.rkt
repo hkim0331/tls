@@ -1,4 +1,5 @@
 #lang racket
+;; $ raco pkg install https://github.com/dmac/spin.git
 
 (require (planet dmac/spin))
 (require web-server/templates)

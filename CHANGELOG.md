@@ -11,8 +11,9 @@
 - multipass docker でイメージを作れるか？
 - raco pkg install date
 
+
 ## 0.2.12 - 2023-03-25
-- update README.md
+- update README.md 
 
 ## 0.2.11 - 2023-03-24
 ### BREAKING entries, find を変更
