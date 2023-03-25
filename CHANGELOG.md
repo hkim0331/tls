@@ -11,16 +11,23 @@
 - multipass docker でイメージを作れるか？
 
 
+## 0.2.12 - 2023-03-25
+- update README.md 
+- make-doc を呼び出しに使わず、insert の内部で処理する
+- find の補助関数を find 内部におさめる
+- has-key
+- raco pkg install
+
 ## 0.2.11 - 2023-03-24
-### BREAKING entries, (find) を変更
+### BREAKING entries, find を変更
 - database  ::= document の集まり
 - documents ::= entry の集まり
 - entries   ::= (key entry) でキー、
                 (val entry) でバリューが取り出せる entry の集まり
-- find-all を基本形に。find-one は　(first (find-one)) でよい
-- module で。provide するのは init, insert, find, list, 
+- find-all を基本形に。find-one は (first (find-one)) でよい
+- module で。provide するのは init, insert, find, list,
 
-## 0.2.10 
+## 0.2.10
 - db.rkt find が動くようになった。次は find-all
 - Magic Racket の選んで alt+enter はめんどくさい。
   それよりも、右上ボタンの Load file in REPL のほうかな。
@@ -31,6 +38,13 @@
   $ sudo dockerd
   $ code .
   <Reopen in Container>
+
+## 0.1.9 - 2023-03-25
+- renamed 
+  app-web.rkt -> spin-web.rkt
+  db-scm.rkt  -> scm-db.rkt
+- dot-pair やめた
+
 
 ## 0.1.8 - 2023-03-24
 - https://zenn.dev/yyu/articles/3f900eaa2aa860 を参考に、

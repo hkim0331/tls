@@ -1,5 +1,5 @@
 #lang racket
-(require "atom.rkt")
+(require "00-atom.rkt")
 
 ;; cons の第一引数はアトムあるいはリストでよいが、
 ;; cons の第二引数はリストに限る。

@@ -1,5 +1,5 @@
 #lang racket
-(require "atom.rkt")
+(require "00-atom.rkt")
 
 (map atom? '(1 2 3 apple orange '(banana)))
 
