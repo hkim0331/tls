@@ -140,9 +140,9 @@
     (find (lambda (k v) #t) key "")))
 
 ; もうちょっと
-(find-key 'wbc)
+; (find-key 'wbc)
 
-(define key=? 
-  (lambda (k)
-    ()
+; (define key=? 
+;   (lambda (k)
+;     ()))
 ;; (filter (lambda (doc) (key=? 'key) (find-key 'family-name)))
