@@ -23,6 +23,8 @@
 
 (require date)
 
+
+
 ;; FIXME: name?
 (define null-or-first
   (lambda (obj)
@@ -33,6 +35,15 @@
 (define nil '())
 (define *db* nil)
 (define documents (lambda () *db*))
+
+(define id-closure
+  (lambda ()
+    (let ((n (length (documents))))
+      (lambda ()
+        (set! n (+ n 1))
+        n))))
+
+(define id (id-closure))
 
 (define init
   (lambda ()
@@ -77,18 +88,27 @@
 ; (make-datetime)
 
 (define add-datetime
-  (lambda (data) (cons (make-datetime) data)))
+  (lambda (doc) (cons (make-datetime) doc)))
 
 ; (add-datetime '((a . 1) (b . 2)))
+
+(define make-id
+  (lambda () (make-entry 'id (id))))
+
+; (make-id)
+
+(define add-id
+  (lambda (doc) (cons (make-id) doc)))
 
 (define insert
   (lambda (a . b) 
     (let* ((data (cons a b))
            (doc (apply make-doc data)))
-      (set! *db* (cons (add-datetime doc) *db*)))))
+      (set! *db* (cons (add-id (add-datetime doc)) *db*)))))
 
-; (insert 'test "test")
-; (first *db*)
+(insert 'test "test")
+*db*
+(first *db*)
 ; (insert (make-doc 'given-name "isana" 'family-name "kimura"))
 ; (insert (make-doc 'given-name "aoi" 'family-name "kimura"))
 ; (insert (make-doc 'given-name "hiroshi" 'family-name "kimura"))
@@ -132,7 +152,6 @@
 (define load
   (lambda () (load-from "scmdb.dat")))
 
-
 ;; test 
 
 (init)
@@ -159,10 +178,12 @@
 (find string=? 'wbc "japan")
 
 (has-key 'wbc)
-(find string=? 'result "gold")
+(first (find string=? 'result "gold"))
+
+(find = 'id 8)
 
 (save)
 (init)
 (load)
 (has-key 'result)
-(documents)
+; (documents)

@@ -11,6 +11,12 @@
 - multipass docker でイメージを作れるか？
 
 
+
+## 0.2.13 - 2023-03-25
+- (make-id) closure (define id (make-id))
+- insert 時にエントリーに ('id (id)) を付与。
+- provide/require
+
 ## 0.2.12 - 2023-03-25
 - update README.md 
 - make-doc を呼び出しに使わず、insert の内部で処理する
