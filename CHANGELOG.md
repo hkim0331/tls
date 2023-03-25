@@ -9,18 +9,18 @@
   でも multipass docker では imported from racket のみ。
 - multipass docker racket でXQuartz が起動するのはなぜ？
 - multipass docker でイメージを作れるか？
-
+- raco pkg install date
 
 ## 0.2.11 - 2023-03-24
-### BREAKING entries, (find) を変更
+### BREAKING entries, find を変更
 - database  ::= document の集まり
 - documents ::= entry の集まり
 - entries   ::= (key entry) でキー、
                 (val entry) でバリューが取り出せる entry の集まり
 - find-all を基本形に。find-one は　(first (find-one)) でよい
-- module で。provide するのは init, insert, find, list, 
+- module で。provide するのは init, insert, find, list,
 
-## 0.2.10 
+## 0.2.10
 - db.rkt find が動くようになった。次は find-all
 - Magic Racket の選んで alt+enter はめんどくさい。
   それよりも、右上ボタンの Load file in REPL のほうかな。

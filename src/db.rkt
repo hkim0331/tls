@@ -34,8 +34,7 @@
 (define val (lambda (entry) (cdr entry)))
 
 (define make-entry
-  (lambda (key value)
-    (cons key value)))
+  (lambda (key value) (cons key value)))
 
 (define null-or-first
   (lambda (obj)
@@ -63,20 +62,17 @@
 (find-entry 'z '((a . 1) (b . 2) (c x y z))) ;=> '()
 
 (define make-datetime
- (lambda ()
-  (make-kv 'datetime (current-date-string-iso-8601 #t))))
+ (lambda () (make-entry 'datetime (current-date-string-iso-8601 #t))))
 
 ; (make-datetime)
 
 (define add-datetime
-  (lambda (data)
-    (cons (make-datetime) data)))
+  (lambda (data) (cons (make-datetime) data)))
 
 ; (add-datetime '((a . 1) (b . 2)))
 
 (define insert
-  (lambda (data)
-    (set! *db* (cons (add-datetime data) *db*))))
+  (lambda (data) (set! *db* (cons (add-datetime data) *db*))))
 
 (insert (make-doc 'given-name "akari" 'family-name "kimura"))
 (insert (make-doc 'given-name "isana" 'family-name "kimura"))
@@ -124,12 +120,25 @@
 (define load
   (lambda () (load-from "scmdb.dat")))
 
+(save)
+(init)
+(load)
+(length (documents))
+
 (find string=? 'given-name "aoi")
 (first (find string=? 'family-name "kimura"))
 (find string=? 'given-name "hiroshi")
 (find string<? 'datetime "2023")
 (find string<? 'datetime "2024")
-
 (insert (make-doc 'wbc "japan" 'result "gold"))
 (find string=? 'wbc "japan")
-(save)
+
+(find (lambda (k v) #t) 'wbc "")
+
+(define find-key
+  (lambda (key)
+    (find (lambda (k v) #t) key "")))
+
+; もうちょっと
+(find-key 'wbc)
+(filter (lambda (key) (key=? 'key) (find-key 'family-name)))
