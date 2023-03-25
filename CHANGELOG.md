@@ -11,13 +11,16 @@
 - multipass docker でイメージを作れるか？
 - raco pkg install date
 
+## 0.2.12 - 2023-03-25
+- update README.md
+
 ## 0.2.11 - 2023-03-24
 ### BREAKING entries, find を変更
 - database  ::= document の集まり
 - documents ::= entry の集まり
 - entries   ::= (key entry) でキー、
                 (val entry) でバリューが取り出せる entry の集まり
-- find-all を基本形に。find-one は　(first (find-one)) でよい
+- find-all を基本形に。find-one は (first (find-one)) でよい
 - module で。provide するのは init, insert, find, list,
 
 ## 0.2.10
