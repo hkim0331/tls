@@ -141,4 +141,8 @@
 
 ; もうちょっと
 (find-key 'wbc)
-(filter (lambda (key) (key=? 'key) (find-key 'family-name)))
+
+(define key=? 
+  (lambda (k)
+    ()
+;; (filter (lambda (doc) (key=? 'key) (find-key 'family-name)))
