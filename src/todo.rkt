@@ -26,8 +26,9 @@
 (get "/all"
   (lambda ()
     (let ((out (open-output-string)))
-      (map (lambda (doc) (display doc out) (display "<br>" out)) 
-           (reverse (documents)))
+      (map (lambda (doc) (display doc out) (display "<br>" out))
+           ; reverse?
+           (documents))
       (get-output-string out))))
 
 (get "/date/:date"
@@ -46,7 +47,10 @@
 
 (post "/create"
   (lambda (req)
-    (print req)
-    (redirect "/all")))
+    (let ((subject (params req 'subject))
+          (detail (params req 'detail)))
+      ; (string-append "params" subject " " detail)
+      (insert 'subject subject 'detail detail)
+      (redirect "/all"))))
 
 (run)

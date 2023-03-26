@@ -10,6 +10,10 @@
 - multipass docker racket でXQuartz が起動するのはなぜ？
 - multipass docker でイメージを作れるか？
 
+## 0.3.15 - 2023-03-26
+- post も (params req 'name) で受け取れる。
+- defined (post /create)
+
 ## 0.3.14 - 2023-03-26
 - defineed scm-db.rkt:scm-db-test
 - todo.rkt
