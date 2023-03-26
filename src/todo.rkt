@@ -10,13 +10,39 @@
          web-server/templates
          "scm-db.rkt")
 
+(define redirect
+  (lambda (url)
+    (define h (header #"Location" (string->bytes/utf-8 url)))
+    `(302 (,h) "Look for the custom header!")))
+
+(get "/r"
+  (lambda ()
+    (redirect "/")))
+
 (get "/"
   (lambda ()
     (include-template "todo-index.html")))
   
-(get "/all")
-(get "/date/:yyyy-mm-dd")
-(get "/desc/:n")
+(get "/all"
+  (lambda ()
+    (documents)))
 
-(get "/create")
-(post "/create")
+(get "/date/:date"
+  (lambda (req)
+    (let ((date (params req 'date)))
+      date)))
+
+(get "/desc/:id"
+  (lambda (req)
+    (let ((id (params req 'id)))
+      id)))
+
+(get "/create"
+  (lambda ()
+    (include-template "todo-create.html")))
+
+(post "/create"
+  (lambda (req)
+    (redirect "/all")))
+
+(run)

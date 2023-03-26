@@ -34,6 +34,8 @@
 (define *db* nil)
 (define documents (lambda () *db*))
 
+(define db-dat "db.dat")
+
 (define id-closure
   (lambda ()
     (let ((n (length (documents))))
@@ -139,7 +141,7 @@
       #:exists 'replace)))
 
 (define save
-  (lambda () (save-to "db.dat")))
+  (lambda () (save-to db-dat)))
 
 (define load-from
   (lambda (filename)
@@ -148,7 +150,7 @@
       (lambda (in) (set! *db* (read in))))))
 
 (define load
-  (lambda () (load-from "scmdb.dat")))
+  (lambda () (load-from db-dat)))
 
 ;; test 
 
