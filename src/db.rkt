@@ -126,7 +126,7 @@
       (set! *db* (cons (add-id (add-datetime doc)) *db*))
       (save))))
 
-(insert 'test "test")
+; (insert 'test "test")
 ; *db*
 ; (first *db*)
 ; (insert (make-doc 'given-name "isana" 'family-name "kimura"))
@@ -142,23 +142,21 @@
 ; (entry 'given-name (first *db*))
 
 (define find
-  (lambda (fn key value)
+  (lambda (fn key match)
     (letrec
-      ((find-aux (lambda (doc fn key value)
+      ((find-aux (lambda (doc fn key match)
             (let ((e (entry key doc)))
-              (and (not (empty? e)) (fn value (val e)))))))
-        (filter (lambda (doc) (find-aux doc fn key value)) *db*))))
+              (and (not (empty? e)) (fn (val e) match))))))
+        (filter (lambda (doc) (find-aux doc fn key match)) *db*))))
 
 (define has-key
   (lambda (key)
     (find (lambda (k v) #t) key '())))
 
-
-
 ;; test 
 (define db-test
   (lambda ()
-    (init)
+    ; (init)
 
     (insert 'given-name "akari" 'family-name "kimura")
     (insert 'given-name "isana" 'family-name "kimura")
