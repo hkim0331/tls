@@ -40,22 +40,46 @@
     (let ((id       (getf doc 'id))
           (datetime (substring (getf doc 'datetime) 0 10))
           (subject  (getf doc 'subject)))
-      (format "<p>~a ~a ~a</p>" id datetime subject))))
+      (format "~a ~a ~a" id datetime subject))))
+
+(define resp 
+  (lambda (docs)
+    (let ((out (open-output-string)))
+      (map (lambda (doc) (display doc out) (display "<br>" out))
+           docs)
+      (display "<p><a href='/'>menu</a><p>" out)
+      (get-output-string out))))
+
+; (get "/all"
+;   (lambda ()
+;     (let ((out (open-output-string)))
+;       (map (lambda (doc) (display (id-datetime-subject doc) out))
+;            ; reverse?
+;            (documents))
+;       (get-output-string out))))
+
+; (get "/all"
+;   (lambda ()
+;     (resp (map (lambda (doc) (id-datetime-subject doc))
+;                (documents)))))
 
 (get "/all"
   (lambda ()
-    (let ((out (open-output-string)))
-      (map (lambda (doc) (display (id-datetime-subject doc) out))
-           ; reverse?
-           (documents))
-      (get-output-string out))))
+    (resp (map id-datetime-subject (documents)))))
+
+; date にマッチするものだけをリスト
+(define date=?
+  (lambda (date match)
+    (string=? (substring date 0 (string-length match)) match)))
 
 (get "/date/:date"
   (lambda (req)
     (let ((date (params req 'date)))
-      date)))
+      (resp (map id-datetime-subject
+                 (find date=? 'datetime date))))))
 
-(get "/desc/:id"
+; id=n の :detail フィールドを表示
+(get "/detail/:id"
   (lambda (req)
     (let ((id (params req 'id)))
       id)))
@@ -72,4 +96,5 @@
       (insert 'subject subject 'detail detail)
       (redirect "/all"))))
 
+(load)
 (run)
