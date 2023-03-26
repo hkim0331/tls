@@ -9,7 +9,7 @@
   でも multipass docker では imported from racket のみ。
 - multipass docker racket でXQuartz が起動するのはなぜ？
 - multipass docker でイメージを作れるか？
-- JSON で。
+- Accept: application/json できたい。
 
 ## 0.3.17 - 2023-03-26
 - defined (get "/detail/:n")
