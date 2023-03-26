@@ -10,7 +10,9 @@
 - multipass docker racket でXQuartz が起動するのはなぜ？
 - multipass docker でイメージを作れるか？
 
-
+## 0.3.14-SNAPSHOT
+- defineed scm-db.rkt:scm-db-test
+- todo.rkt
 
 ## 0.2.13 - 2023-03-25
 - (make-id) closure (define id (make-id))

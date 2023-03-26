@@ -25,7 +25,9 @@
   
 (get "/all"
   (lambda ()
-    (documents)))
+    (let ((docs (documents)))
+      )
+
 
 (get "/date/:date"
   (lambda (req)
@@ -43,6 +45,7 @@
 
 (post "/create"
   (lambda (req)
+    (print req)
     (redirect "/all")))
 
 (run)
