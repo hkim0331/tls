@@ -1,8 +1,8 @@
 #lang racket
 ; get / ... display menu
 ; get /all ... display all todo
-; get /date/yyyy-mm-dd ... display yyyy-mm-dd todo subjects only
-; get /desc/n ... display todo id=n full
+; get /date/pattern ... display subjects matched against `pattern` only
+; get /detail/n ... display detail of topic `n`
 ; get /create ... show input form
 ; post /create ... insert inputted todo
 
@@ -13,11 +13,7 @@
 (define redirect
   (lambda (url)
     (define h (header #"Location" (string->bytes/utf-8 url)))
-    `(302 (,h) "Look for the custom header!")))
-
-; (get "/r"
-;   (lambda ()
-;     (redirect "/")))
+    `(302 (,h) "redirect")))
 
 (define getf
   (lambda (doc key)
@@ -26,15 +22,10 @@
         ""
         (second (first ret))))))
 
-; (filter (lambda (e) (eq? 'id (first e))) '((id 3) (name 4)))
-; (getf '((id 3) (name 4)) 'id)
-
 (get "/"
   (lambda ()
     (include-template "todo-index.html")))
 
-;; FIXME: select fields to be displayed
-;;        id, datetime, subject
 (define id-datetime-subject
   (lambda (doc)
     (let ((id       (getf doc 'id))
@@ -42,26 +33,13 @@
           (subject  (getf doc 'subject)))
       (format "~a ~a ~a" id datetime subject))))
 
-(define resp 
+(define resp
   (lambda (docs)
     (let ((out (open-output-string)))
       (map (lambda (doc) (display doc out) (display "<br>" out))
            docs)
       (display "<p><a href='/'>menu</a><p>" out)
       (get-output-string out))))
-
-; (get "/all"
-;   (lambda ()
-;     (let ((out (open-output-string)))
-;       (map (lambda (doc) (display (id-datetime-subject doc) out))
-;            ; reverse?
-;            (documents))
-;       (get-output-string out))))
-
-; (get "/all"
-;   (lambda ()
-;     (resp (map (lambda (doc) (id-datetime-subject doc))
-;                (documents)))))
 
 (get "/all"
   (lambda ()
@@ -81,8 +59,13 @@
 ; id=n の :detail フィールドを表示
 (get "/detail/:id"
   (lambda (req)
-    (let ((id (params req 'id)))
-      id)))
+    (let* ((id (string->number (params req 'id)))
+           (doc (first (find eq? 'id id)))
+           (subject     (getf doc 'subject))
+           (datetime    (getf doc 'datetime))
+           (detail      (getf doc 'detail)))
+      ; (string-append subject " " datetime " " detail " "))))
+      (include-template "todo-detail.html"))))
 
 (get "/create"
   (lambda ()
