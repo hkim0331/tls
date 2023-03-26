@@ -11,8 +11,11 @@
 - multipass docker でイメージを作れるか？
 
 
-## 0.3.16
-- FIXED BUG: id がセッションを超える用になった。
+## 0.3.17 - 2023-03-26
+- defined (get "/detail/:n")
+
+## 0.3.16 - 2023-03-26
+- FIXED BUG: id がセッションを超えてインクリメントする。
 
 ## 0.3.15 - 2023-03-26
 - post も (params req 'name) で受け取れる。
