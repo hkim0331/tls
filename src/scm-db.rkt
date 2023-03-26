@@ -156,7 +156,6 @@
 (define db-scm-test
   (lambda ()
     (init)
-    (save)
 
     (insert 'given-name "akari" 'family-name "kimura")
     (insert 'given-name "isana" 'family-name "kimura")
@@ -169,23 +168,23 @@
     (insert 'type "number" 'one 1)
     (insert 'type "number" 'two 2)
 
-    (find string=? 'given-name "aoi")
-    (first (find string=? 'family-name "kimura"))
-    (find string=? 'given-name "hiroshi")
+    (define out (open-output-string))
+    (display (find string=? 'given-name "aoi") out)
+    (display (first (find string=? 'family-name "kimura")) out)
+    (display (find string=? 'given-name "hiroshi") out)
 
-    (find string<? 'datetime "2023")
-    (find string<? 'datetime "2024")
+    (display (find string<? 'datetime "2023") out)
+    (display (find string<? 'datetime "2024") out)
 
-    (find string=? 'wbc "japan")
+    (display (find string=? 'wbc "japan") out)
 
-    (has-key 'wbc)
-    (first (find string=? 'result "gold"))
-
+    (display (has-key 'wbc) out)
+    (display (first (find string=? 'result "gold")) out)
     (find = 'id 8)
-
+    
     (save)
-    (init)
-    (load)
+
+    (display (get-output-string out))
     ))
 
-; (db-scm-test)
+(db-scm-test)

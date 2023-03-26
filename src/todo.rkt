@@ -15,9 +15,9 @@
     (define h (header #"Location" (string->bytes/utf-8 url)))
     `(302 (,h) "Look for the custom header!")))
 
-(get "/r"
-  (lambda ()
-    (redirect "/")))
+; (get "/r"
+;   (lambda ()
+;     (redirect "/")))
 
 (get "/"
   (lambda ()
@@ -25,9 +25,10 @@
   
 (get "/all"
   (lambda ()
-    (let ((docs (documents)))
-      )
-
+    (let ((out (open-output-string)))
+      (map (lambda (doc) (display doc out) (display "<br>" out)) 
+           (reverse (documents)))
+      (get-output-string out))))
 
 (get "/date/:date"
   (lambda (req)
