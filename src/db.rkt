@@ -34,8 +34,13 @@
 (define *db* nil)
 (define documents (lambda () *db*))
 
-(define db-dat "db.dat")
+(define db-dat (string-append (path->string (current-directory)) "/db.dat"))
 
+(define init
+  (lambda ()
+    (set! *db* nil)))
+
+;; id の定義は load のあと
 (define id-closure
   (lambda ()
     (let ((n (length (documents))))
@@ -43,11 +48,30 @@
         (set! n (+ n 1))
         n))))
 
-(define id (id-closure))
+(define id nil)
 
-(define init
+(define save-to
+  (lambda (filename)
+    (call-with-output-file
+      filename
+      (lambda (out) (write *db* out))
+      #:exists 'replace)))
+
+(define save
+  (lambda () (save-to db-dat)))
+
+(define load-from
+  (lambda (filename)
+    (call-with-input-file 
+      filename
+      (lambda (in) (set! *db* (read in))))))
+
+(define load
   (lambda ()
-    (set! *db* nil)))
+   (load-from db-dat)
+   (set! id (id-closure))))
+
+;;(define id (id-closure))
 
 (define make-entry
   (lambda (key value) (cons key (cons value '()))))
@@ -104,9 +128,10 @@
   (lambda (a . b) 
     (let* ((data (cons a b))
            (doc (apply make-doc data)))
-      (set! *db* (cons (add-id (add-datetime doc)) *db*)))))
+      (set! *db* (cons (add-id (add-datetime doc)) *db*))
+      (save))))
 
-(insert 'test "test")
+; (insert 'test "test")
 ; *db*
 ; (first *db*)
 ; (insert (make-doc 'given-name "isana" 'family-name "kimura"))
@@ -122,38 +147,19 @@
 ; (entry 'given-name (first *db*))
 
 (define find
-  (lambda (fn key value)
+  (lambda (fn key match)
     (letrec
-      ((find-aux (lambda (doc fn key value)
+      ((find-aux (lambda (doc fn key match)
             (let ((e (entry key doc)))
-              (and (not (empty? e)) (fn value (val e)))))))
-        (filter (lambda (doc) (find-aux doc fn key value)) *db*))))
+              (and (not (empty? e)) (fn (val e) match))))))
+        (filter (lambda (doc) (find-aux doc fn key match)) *db*))))
 
 (define has-key
   (lambda (key)
     (find (lambda (k v) #t) key '())))
 
-(define save-to
-  (lambda (filename)
-    (call-with-output-file
-      filename
-      (lambda (out) (write *db* out))
-      #:exists 'replace)))
-
-(define save
-  (lambda () (save-to db-dat)))
-
-(define load-from
-  (lambda (filename)
-    (call-with-input-file 
-      filename
-      (lambda (in) (set! *db* (read in))))))
-
-(define load
-  (lambda () (load-from db-dat)))
-
 ;; test 
-(define db-scm-test
+(define db-test
   (lambda ()
     (init)
 
@@ -182,9 +188,8 @@
     (display (first (find string=? 'result "gold")) out)
     (find = 'id 8)
     
-    (save)
-
     (display (get-output-string out))
+    (save)
     ))
 
-(db-scm-test)
+; (db-test)
