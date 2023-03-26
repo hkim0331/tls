@@ -34,7 +34,7 @@
 (define *db* nil)
 (define documents (lambda () *db*))
 
-(define db-dat "db.dat")
+(define db-dat (string-append (path->string (current-directory)) "/db.dat"))
 
 (define id-closure
   (lambda ()
@@ -48,6 +48,25 @@
 (define init
   (lambda ()
     (set! *db* nil)))
+
+(define save-to
+  (lambda (filename)
+    (call-with-output-file
+      filename
+      (lambda (out) (write *db* out))
+      #:exists 'replace)))
+
+(define save
+  (lambda () (save-to db-dat)))
+
+(define load-from
+  (lambda (filename)
+    (call-with-input-file 
+      filename
+      (lambda (in) (set! *db* (read in))))))
+
+(define load
+  (lambda () (load-from db-dat)))
 
 (define make-entry
   (lambda (key value) (cons key (cons value '()))))
@@ -104,7 +123,8 @@
   (lambda (a . b) 
     (let* ((data (cons a b))
            (doc (apply make-doc data)))
-      (set! *db* (cons (add-id (add-datetime doc)) *db*)))))
+      (set! *db* (cons (add-id (add-datetime doc)) *db*))
+      (save))))
 
 (insert 'test "test")
 ; *db*
@@ -133,27 +153,10 @@
   (lambda (key)
     (find (lambda (k v) #t) key '())))
 
-(define save-to
-  (lambda (filename)
-    (call-with-output-file
-      filename
-      (lambda (out) (write *db* out))
-      #:exists 'replace)))
 
-(define save
-  (lambda () (save-to db-dat)))
-
-(define load-from
-  (lambda (filename)
-    (call-with-input-file 
-      filename
-      (lambda (in) (set! *db* (read in))))))
-
-(define load
-  (lambda () (load-from db-dat)))
 
 ;; test 
-(define db-scm-test
+(define db-test
   (lambda ()
     (init)
 
@@ -182,9 +185,7 @@
     (display (first (find string=? 'result "gold")) out)
     (find = 'id 8)
     
-    (save)
-
     (display (get-output-string out))
     ))
 
-(db-scm-test)
+; (db-test)

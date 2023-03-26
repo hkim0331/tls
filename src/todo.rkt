@@ -8,7 +8,7 @@
 
 (require (planet dmac/spin)
          web-server/templates
-         "scm-db.rkt")
+         "db.rkt")
 
 (define redirect
   (lambda (url)
@@ -19,14 +19,33 @@
 ;   (lambda ()
 ;     (redirect "/")))
 
+(define getf
+  (lambda (doc key)
+    (let ((ret (filter (lambda (entry) (eq? key (first entry))) doc)))
+      (if (null? ret)
+        ""
+        (second (first ret))))))
+
+; (filter (lambda (e) (eq? 'id (first e))) '((id 3) (name 4)))
+; (getf '((id 3) (name 4)) 'id)
+
 (get "/"
   (lambda ()
     (include-template "todo-index.html")))
-  
+
+;; FIXME: select fields to be displayed
+;;        id, datetime, subject
+(define id-datetime-subject
+  (lambda (doc)
+    (let ((id       (getf doc 'id))
+          (datetime (substring (getf doc 'datetime) 0 10))
+          (subject  (getf doc 'subject)))
+      (format "<p>~a ~a ~a</p>" id datetime subject))))
+
 (get "/all"
   (lambda ()
     (let ((out (open-output-string)))
-      (map (lambda (doc) (display doc out) (display "<br>" out))
+      (map (lambda (doc) (display (id-datetime-subject doc) out))
            ; reverse?
            (documents))
       (get-output-string out))))
