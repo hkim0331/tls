@@ -10,9 +10,13 @@
          web-server/templates
          "scm-db.rkt")
 
-(get "/")
+(get "/"
+  (lambda ()
+    (include-template "todo-index.html")))
+  
 (get "/all")
 (get "/date/:yyyy-mm-dd")
 (get "/desc/:n")
+
 (get "/create")
 (post "/create")
