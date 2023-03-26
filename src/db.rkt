@@ -36,6 +36,11 @@
 
 (define db-dat (string-append (path->string (current-directory)) "/db.dat"))
 
+(define init
+  (lambda ()
+    (set! *db* nil)))
+
+;; id の定義は load のあと
 (define id-closure
   (lambda ()
     (let ((n (length (documents))))
@@ -43,11 +48,7 @@
         (set! n (+ n 1))
         n))))
 
-(define id (id-closure))
-
-(define init
-  (lambda ()
-    (set! *db* nil)))
+(define id nil)
 
 (define save-to
   (lambda (filename)
@@ -66,7 +67,11 @@
       (lambda (in) (set! *db* (read in))))))
 
 (define load
-  (lambda () (load-from db-dat)))
+  (lambda ()
+   (load-from db-dat)
+   (set! id (id-closure))))
+
+;;(define id (id-closure))
 
 (define make-entry
   (lambda (key value) (cons key (cons value '()))))
@@ -156,7 +161,7 @@
 ;; test 
 (define db-test
   (lambda ()
-    ; (init)
+    (init)
 
     (insert 'given-name "akari" 'family-name "kimura")
     (insert 'given-name "isana" 'family-name "kimura")
@@ -184,6 +189,7 @@
     (find = 'id 8)
     
     (display (get-output-string out))
+    (save)
     ))
 
 ; (db-test)
