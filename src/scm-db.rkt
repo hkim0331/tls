@@ -34,6 +34,8 @@
 (define *db* nil)
 (define documents (lambda () *db*))
 
+(define db-dat "db.dat")
+
 (define id-closure
   (lambda ()
     (let ((n (length (documents))))
@@ -139,7 +141,7 @@
       #:exists 'replace)))
 
 (define save
-  (lambda () (save-to "db.dat")))
+  (lambda () (save-to db-dat)))
 
 (define load-from
   (lambda (filename)
@@ -148,40 +150,41 @@
       (lambda (in) (set! *db* (read in))))))
 
 (define load
-  (lambda () (load-from "scmdb.dat")))
+  (lambda () (load-from db-dat)))
 
 ;; test 
+(define db-scm-test
+  (lambda ()
+    (init)
 
-(init)
-(save)
+    (insert 'given-name "akari" 'family-name "kimura")
+    (insert 'given-name "isana" 'family-name "kimura")
+    (insert 'given-name "aoi" 'family-name "kimura")
+    (insert 'given-name "hiroshi" 'family-name "kimura")
+    (insert 'given-name "miyuki" 'family-name "kimura")
+    (insert 'wbc "japan" 'result "gold")
+    (insert 'wbc "usa" 'result "silver")
+    (insert 'computer 'mac 'os "macos")
+    (insert 'type "number" 'one 1)
+    (insert 'type "number" 'two 2)
 
-(insert 'given-name "akari" 'family-name "kimura")
-(insert 'given-name "isana" 'family-name "kimura")
-(insert 'given-name "aoi" 'family-name "kimura")
-(insert 'given-name "hiroshi" 'family-name "kimura")
-(insert 'given-name "miyuki" 'family-name "kimura")
-(insert 'wbc "japan" 'result "gold")
-(insert 'wbc "usa" 'result "silver")
-(insert 'computer 'mac 'os "macos")
-(insert 'type "number" 'one 1)
-(insert 'type "number" 'two 2)
+    (define out (open-output-string))
+    (display (find string=? 'given-name "aoi") out)
+    (display (first (find string=? 'family-name "kimura")) out)
+    (display (find string=? 'given-name "hiroshi") out)
 
-(find string=? 'given-name "aoi")
-(first (find string=? 'family-name "kimura"))
-(find string=? 'given-name "hiroshi")
+    (display (find string<? 'datetime "2023") out)
+    (display (find string<? 'datetime "2024") out)
 
-(find string<? 'datetime "2023")
-(find string<? 'datetime "2024")
+    (display (find string=? 'wbc "japan") out)
 
-(find string=? 'wbc "japan")
+    (display (has-key 'wbc) out)
+    (display (first (find string=? 'result "gold")) out)
+    (find = 'id 8)
+    
+    (save)
 
-(has-key 'wbc)
-(first (find string=? 'result "gold"))
+    (display (get-output-string out))
+    ))
 
-(find = 'id 8)
-
-(save)
-(init)
-(load)
-(has-key 'result)
-; (documents)
+(db-scm-test)
