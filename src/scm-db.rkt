@@ -23,9 +23,7 @@
 
 (require date)
 
-
-
-;; FIXME: name?
+;; FIXME: function name?
 (define null-or-first
   (lambda (obj)
     (if (null? obj)
@@ -107,8 +105,8 @@
       (set! *db* (cons (add-id (add-datetime doc)) *db*)))))
 
 (insert 'test "test")
-*db*
-(first *db*)
+; *db*
+; (first *db*)
 ; (insert (make-doc 'given-name "isana" 'family-name "kimura"))
 ; (insert (make-doc 'given-name "aoi" 'family-name "kimura"))
 ; (insert (make-doc 'given-name "hiroshi" 'family-name "kimura"))
@@ -141,7 +139,7 @@
       #:exists 'replace)))
 
 (define save
-  (lambda () (save-to "scmdb.dat")))
+  (lambda () (save-to "db.dat")))
 
 (define load-from
   (lambda (filename)
