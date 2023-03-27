@@ -10,7 +10,8 @@
 - multipass docker racket で Magic Racket language server enable すると
   空振りの XQuartz が起動する
 - multipass docker でポート8000を公開できない。
-- DockerDesktop でも docker-compose に ports: [ "8000:8000" ] をかくと公開できない。docker-compose の設定じゃなく、DockerDesktop の隠れた力でポート公開している感じ。
+- DockerDesktop でも docker-compose に ports: [ "8000:8000" ] をかくと公開できない。
+  docker-compose の設定じゃなく、DockerDesktop の隠れた力でポート公開している感じ。
 
 
 ## 0.3.20 - 2023-03-28
