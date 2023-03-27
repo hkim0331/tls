@@ -21,7 +21,7 @@
       (if (null? ret)
         ""
         (second (first ret))))))
-
+        
 (get "/"
   (lambda ()
     (include-template "todo-index.html")))
@@ -31,7 +31,7 @@
     (let ((id       (getf doc 'id))
           (datetime (substring (getf doc 'datetime) 0 10))
           (subject  (getf doc 'subject)))
-      (format "~a ~a ~a" id datetime subject))))
+      (format "<a href='/detail?id=~a'>~a</a> ~a ~a" id id datetime subject))))
 
 (define resp
   (lambda (docs)
@@ -56,15 +56,18 @@
       (resp (map id-datetime-subject
                  (find date=? 'datetime date))))))
 
+(get "/today"
+  (lambda ()
+    (redirect (format "/date/~a" (today)))))
+   
 ; id=n の :detail フィールドを表示
-(get "/detail/:id"
+(get "/detail"
   (lambda (req)
     (let* ((id (string->number (params req 'id)))
            (doc (first (find eq? 'id id)))
            (subject     (getf doc 'subject))
            (datetime    (getf doc 'datetime))
            (detail      (getf doc 'detail)))
-      ; (string-append subject " " datetime " " detail " "))))
       (include-template "todo-detail.html"))))
 
 (get "/create"
@@ -75,7 +78,6 @@
   (lambda (req)
     (let ((subject (params req 'subject))
           (detail (params req 'detail)))
-      ; (string-append "params" subject " " detail)
       (insert 'subject subject 'detail detail)
       (redirect "/all"))))
 

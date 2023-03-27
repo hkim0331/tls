@@ -25,3 +25,4 @@ fi
 
 ${SED} -i "s/version .*$/version $1/" src/todo-index.html
 ${SED} -i "s/version .*$/version $1/" src/todo-create.html
+${SED} -i "s/version .*$/version $1/" src/todo-detail.html

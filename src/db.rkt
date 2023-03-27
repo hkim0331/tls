@@ -1,8 +1,6 @@
 #lang racket
 ;; database システムを作ろう。これと spin で、td-app を作る。
 ;; td-app は今日やったこと、今日やることをネットから入力、検索できるアプリとする。
-;; ブラウザだけじゃなく、端末からも操作できるように。
-;; td は todo とも、todays ともどっちでも。
 ;;
 ;; * database ::= document の集まり
 ;; * document ::= entry の集まり
@@ -19,6 +17,7 @@
   has-key    ; (has-key 'key)
   load       ; load saved documents into memory
   save       ; save documents into file
+  today      ; returns todays date string yyyy-mm-dd
   )
 
 (require date)
@@ -33,8 +32,12 @@
 (define nil '())
 (define *db* nil)
 (define documents (lambda () *db*))
-
+(define id nil)
 (define db-dat (string-append (path->string (current-directory)) "/db.dat"))
+
+(define today
+  (lambda()
+    (substring (current-date-string-iso-8601 #t) 0 10)))
 
 (define init
   (lambda ()
@@ -48,8 +51,6 @@
         (set! n (+ n 1))
         n))))
 
-(define id nil)
-
 (define save-to
   (lambda (filename)
     (call-with-output-file
@@ -62,7 +63,7 @@
 
 (define load-from
   (lambda (filename)
-    (call-with-input-file 
+    (call-with-input-file
       filename
       (lambda (in) (set! *db* (read in))))))
 
@@ -71,21 +72,11 @@
    (load-from db-dat)
    (set! id (id-closure))))
 
-;;(define id (id-closure))
-
 (define make-entry
   (lambda (key value) (cons key (cons value '()))))
 
 (define key first)
 (define val second)
-
-; (define data (make-entry 'key 'value))
-; (key data)
-; (val data)
-
-; (define get-value
-;   (lambda (d k)
-;     (null-or-first (filter (lambda (e) (eq? k (key e)) d)))))
 
 (define find-entry
   (lambda (k doc)
@@ -99,52 +90,28 @@
         (make-entry key value)
         (apply make-doc more)))))
 
-; (make-doc 'a 1)
-; (make-doc 'a 1 'b 2)
-; (make-doc 'a 1 'b 2 'c '(x y z))
-
-; (find-entry 'b '((a . 1) (b . 2) (c x y z))) ;=> '(b . 2)
-; (find-entry 'z '((a . 1) (b . 2) (c x y z))) ;=> '()
-
 (define make-datetime
- (lambda () (make-entry 'datetime (current-date-string-iso-8601 #t))))
-
-; (make-datetime)
+  (lambda () (make-entry 'datetime (current-date-string-iso-8601 #t))))
 
 (define add-datetime
   (lambda (doc) (cons (make-datetime) doc)))
 
-; (add-datetime '((a . 1) (b . 2)))
-
 (define make-id
   (lambda () (make-entry 'id (id))))
-
-; (make-id)
 
 (define add-id
   (lambda (doc) (cons (make-id) doc)))
 
 (define insert
-  (lambda (a . b) 
+  (lambda (a . b)
     (let* ((data (cons a b))
            (doc (apply make-doc data)))
       (set! *db* (cons (add-id (add-datetime doc)) *db*))
       (save))))
 
-; (insert 'test "test")
-; *db*
-; (first *db*)
-; (insert (make-doc 'given-name "isana" 'family-name "kimura"))
-; (insert (make-doc 'given-name "aoi" 'family-name "kimura"))
-; (insert (make-doc 'given-name "hiroshi" 'family-name "kimura"))
-; (insert (make-doc 'given-name "miyuki" 'family-name "kimura"))
-
 (define entry
   (lambda (k d)
     (null-or-first (filter (lambda (d) (eq? k (car d))) d))))
-
-; (first *db*)
-; (entry 'given-name (first *db*))
 
 (define find
   (lambda (fn key match)
@@ -158,7 +125,7 @@
   (lambda (key)
     (find (lambda (k v) #t) key '())))
 
-;; test 
+;; test
 (define db-test
   (lambda ()
     (init)
@@ -187,7 +154,7 @@
     (display (has-key 'wbc) out)
     (display (first (find string=? 'result "gold")) out)
     (find = 'id 8)
-    
+
     (display (get-output-string out))
     (save)
     ))
