@@ -3,12 +3,13 @@
 ## Unreleased
 - doc と src 二つにドキュメントを分けるのはめんどくさいぞ。
 - raco pkg install racket-langserver できるようになったが、
-  windows wsl2 で体験するような関数のヘルプがポップアップしない。
-  例えば、wsl2 vscode では null? にホバリングすると
+  windows/wsl で体験するような関数のヘルプがポップアップしない。
+  例えば、wsl vscode では null? にホバリングすると
   imported from "racket" - online docs 以下の小さいウィンドウが出る。
-  でも multipass docker では imported from racket のみ。
-- multipass docker racket でXQuartz が起動するのはなぜ？
-- multipass docker でイメージを作れるか？
+  でも multipass/docker では imported from racket のみ。
+- multipass docker racket で Magic Racket language server enable すると
+  空振りの XQuartz が起動する
+- 日付、id を入力するフォーム。
 
 
 ## 0.3.17 - 2023-03-26
