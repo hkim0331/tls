@@ -21,7 +21,7 @@
       (if (null? ret)
         ""
         (second (first ret))))))
-        
+
 (get "/"
   (lambda ()
     (include-template "todo-index.html")))
@@ -59,7 +59,7 @@
 (get "/today"
   (lambda ()
     (redirect (format "/date/~a" (today)))))
-   
+
 ; id=n の :detail フィールドを表示
 (get "/detail"
   (lambda (req)

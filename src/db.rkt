@@ -28,16 +28,15 @@
     (if (null? obj)
       '()
       (first obj))))
+(define today
+  (lambda()
+    (substring (current-date-string-iso-8601 #t) 0 10)))
 
 (define nil '())
 (define *db* nil)
 (define documents (lambda () *db*))
 (define id nil)
 (define db-dat (string-append (path->string (current-directory)) "/db.dat"))
-
-(define today
-  (lambda()
-    (substring (current-date-string-iso-8601 #t) 0 10)))
 
 (define init
   (lambda ()
@@ -63,9 +62,11 @@
 
 (define load-from
   (lambda (filename)
-    (call-with-input-file
-      filename
-      (lambda (in) (set! *db* (read in))))))
+    (if (file-exists? filename)
+      (call-with-input-file
+        filename
+        (lambda (in) (set! *db* (read in))))
+      (set! *db* '()))))
 
 (define load
   (lambda ()

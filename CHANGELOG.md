@@ -9,7 +9,12 @@
   でも multipass/docker では imported from racket のみ。
 - multipass docker racket で Magic Racket language server enable すると
   空振りの XQuartz が起動する
-- 日付、id を入力するフォーム。
+
+
+## 0.3.19 - 2023-03-27
+- update db.rkt
+  db.dat がない時、*db* に () をセットしてスタート。
+  insert/create 時に db.dat を作成する。
 
 ## 0.3.18 - 2023-03-27
 - link from all to detail
