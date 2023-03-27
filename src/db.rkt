@@ -17,6 +17,7 @@
   has-key    ; (has-key 'key)
   load       ; load saved documents into memory
   save       ; save documents into file
+  today      ; returns todays date string yyyy-mm-dd
   )
 
 (require date)
@@ -33,6 +34,10 @@
 (define documents (lambda () *db*))
 (define id nil)
 (define db-dat (string-append (path->string (current-directory)) "/db.dat"))
+
+(define today
+  (lambda()
+    (substring (current-date-string-iso-8601 #t) 0 10)))
 
 (define init
   (lambda ()

@@ -11,6 +11,13 @@
   空振りの XQuartz が起動する
 - 日付、id を入力するフォーム。
 
+## 0.3.18 - 2023-03-27
+- link from all to detail
+
+  (format "&lt;a href='/detail/~a'>~a</a> ~a ~a" id id datetime subject)
+
+- db.rkt: (today) returns "yyyy-mm-dd"
+- defined (get "/today")
 
 ## 0.3.17 - 2023-03-26
 - defined (get "/detail/:n")
