@@ -19,4 +19,6 @@ USER $USERNAME
 WORKDIR /home/$USERNAME
 RUN raco pkg install --auto racket-langserver
 
+EXPOSE 8000
+
 CMD ["racket"]
