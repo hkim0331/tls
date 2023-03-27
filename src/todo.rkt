@@ -2,7 +2,8 @@
 ; get / ... display menu
 ; get /all ... display all todo
 ; get /date/pattern ... display subjects matched against `pattern` only
-; get /detail/n ... display detail of topic `n`
+; get /today ... display today's todo
+; get /detail?id=n ... display detail of topic `n`
 ; get /create ... show input form
 ; post /create ... insert inputted todo
 
