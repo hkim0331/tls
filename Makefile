@@ -23,7 +23,7 @@ manifest:
 	docker manifest create ${TAG} ${TAG}-amd64 ${TAG}-arm64
 	docker manifest push ${TAG}
 
-test-run:
+test-bash:
 	docker run -it --rm hkim0331/racket bash
 
 clean:
