@@ -64,7 +64,6 @@
            (subject     (getf doc 'subject))
            (datetime    (getf doc 'datetime))
            (detail      (getf doc 'detail)))
-      ; (string-append subject " " datetime " " detail " "))))
       (include-template "todo-detail.html"))))
 
 (get "/create"
@@ -75,7 +74,6 @@
   (lambda (req)
     (let ((subject (params req 'subject))
           (detail (params req 'detail)))
-      ; (string-append "params" subject " " detail)
       (insert 'subject subject 'detail detail)
       (redirect "/all"))))
 
