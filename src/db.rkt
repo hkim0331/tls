@@ -28,19 +28,20 @@
     (if (null? obj)
       '()
       (first obj))))
+
 (define today
   (lambda()
     (substring (current-date-string-iso-8601 #t) 0 10)))
 
-(define nil '())
-(define *db* nil)
+(define *db* '())
 (define documents (lambda () *db*))
-(define id nil)
+(define id '())
+; db はファイルに保存
 (define db-dat (string-append (path->string (current-directory)) "/db.dat"))
 
 (define init
   (lambda ()
-    (set! *db* nil)))
+    (set! *db* '())))
 
 ;; id の定義は load のあと
 (define id-closure
@@ -130,7 +131,7 @@
 (define db-test
   (lambda ()
     (init)
-
+    ;;
     (insert 'given-name "akari" 'family-name "kimura")
     (insert 'given-name "isana" 'family-name "kimura")
     (insert 'given-name "aoi" 'family-name "kimura")
@@ -141,22 +142,21 @@
     (insert 'computer 'mac 'os "macos")
     (insert 'type "number" 'one 1)
     (insert 'type "number" 'two 2)
-
+    ;;
     (define out (open-output-string))
     (display (find string=? 'given-name "aoi") out)
     (display (first (find string=? 'family-name "kimura")) out)
     (display (find string=? 'given-name "hiroshi") out)
-
     (display (find string<? 'datetime "2023") out)
     (display (find string<? 'datetime "2024") out)
-
     (display (find string=? 'wbc "japan") out)
-
+    ;;
     (display (has-key 'wbc) out)
     (display (first (find string=? 'result "gold")) out)
     (find = 'id 8)
-
+    ;;
     (display (get-output-string out))
+    ;;
     (save)
     ))
 
