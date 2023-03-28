@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   racket:
-    image: hkim0331/racket:latest-arm64
+    image: hkim0331/racket
     restart: always
     user: vscode
     # ports:
@@ -10,3 +10,4 @@ services:
       - .:/workspace:cached
     working_dir: /workspace
     command: /bin/sh -c "while sleep 1000; do :; done"
+    # command: racket src/todo.rkt

@@ -13,6 +13,8 @@
 - DockerDesktop でも docker-compose に ports: [ "8000:8000" ] をかくと公開できない。
   docker-compose の設定じゃなく、DockerDesktop の隠れた力でポート公開している感じ。
 
+% docker run -it --rm -p 8000:8000 --mount type=bind,source="$(pwd)",target=/workspace hkim0331/racket bash
+
 
 ## 0.3.20 - 2023-03-28
 - raco pkg install date をやめて racket/date を使う
