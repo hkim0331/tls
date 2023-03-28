@@ -20,7 +20,9 @@
   today      ; returns todays date string yyyy-mm-dd
   )
 
-(require date)
+;(require date)
+(require racket/date)
+(date-display-format 'iso-8601)
 
 ;; FIXME: function name?
 (define null-or-first
@@ -28,21 +30,26 @@
     (if (null? obj)
       '()
       (first obj))))
-(define today
-  (lambda()
-    (substring (current-date-string-iso-8601 #t) 0 10)))
 
-(define nil '())
-(define *db* nil)
+; (define today
+;   (lambda()
+;     (substring (current-date-string-iso-8601 #t) 0 10)))
+(define today
+  (lambda () (date->string (current-date) #f)))
+
+; (today)
+
+(define *db* '())
 (define documents (lambda () *db*))
-(define id nil)
+(define id #f)
+; db はファイルに保存
 (define db-dat (string-append (path->string (current-directory)) "/db.dat"))
 
 (define init
   (lambda ()
-    (set! *db* nil)))
+    (set! *db* '())))
 
-;; id の定義は load のあと
+;; id の定義は最初の load のあと
 (define id-closure
   (lambda ()
     (let ((n (length (documents))))
@@ -91,8 +98,10 @@
         (make-entry key value)
         (apply make-doc more)))))
 
+; (define make-datetime
+;   (lambda () (make-entry 'datetime (current-date-string-iso-8601 #t))))
 (define make-datetime
-  (lambda () (make-entry 'datetime (current-date-string-iso-8601 #t))))
+  (lambda () (make-entry 'datetime (date->string (current-date) #t))))
 
 (define add-datetime
   (lambda (doc) (cons (make-datetime) doc)))
@@ -126,11 +135,13 @@
   (lambda (key)
     (find (lambda (k v) #t) key '())))
 
-;; test
+;; FIXME: 破壊したままはよくない。
+;;        データをどっかに退避して、テストの後、戻せるように。
 (define db-test
   (lambda ()
     (init)
-
+    (load)
+    ;;
     (insert 'given-name "akari" 'family-name "kimura")
     (insert 'given-name "isana" 'family-name "kimura")
     (insert 'given-name "aoi" 'family-name "kimura")
@@ -141,22 +152,21 @@
     (insert 'computer 'mac 'os "macos")
     (insert 'type "number" 'one 1)
     (insert 'type "number" 'two 2)
-
+    ;;
     (define out (open-output-string))
     (display (find string=? 'given-name "aoi") out)
     (display (first (find string=? 'family-name "kimura")) out)
     (display (find string=? 'given-name "hiroshi") out)
-
     (display (find string<? 'datetime "2023") out)
     (display (find string<? 'datetime "2024") out)
-
     (display (find string=? 'wbc "japan") out)
-
+    ;;
     (display (has-key 'wbc) out)
     (display (first (find string=? 'result "gold")) out)
     (find = 'id 8)
-
+    ;;
     (display (get-output-string out))
+    ;;
     (save)
     ))
 

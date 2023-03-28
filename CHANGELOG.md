@@ -9,7 +9,14 @@
   でも multipass/docker では imported from racket のみ。
 - multipass docker racket で Magic Racket language server enable すると
   空振りの XQuartz が起動する
+- DockerDesktop では docker-compose に ports: [ "8000:8000" ] を入れると公開できない。
+  docker-compose の設定じゃなく、DockerDesktop の隠れた力でポート公開している感じ。
 
+% docker run -it --rm -p 8000:8000 --mount type=bind,source="$(pwd)",target=/workspace hkim0331/racket bash
+
+
+## 0.3.20 - 2023-03-28
+- raco pkg install date をやめて racket/date を使う
 
 ## 0.3.19 - 2023-03-27
 - update db.rkt

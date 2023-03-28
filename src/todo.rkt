@@ -2,7 +2,8 @@
 ; get / ... display menu
 ; get /all ... display all todo
 ; get /date/pattern ... display subjects matched against `pattern` only
-; get /detail/n ... display detail of topic `n`
+; get /today ... display today's todo
+; get /detail?id=n ... display detail of topic `n`
 ; get /create ... show input form
 ; post /create ... insert inputted todo
 
@@ -36,8 +37,7 @@
 (define resp
   (lambda (docs)
     (let ((out (open-output-string)))
-      (map (lambda (doc) (display doc out) (display "<br>" out))
-           docs)
+      (map (lambda (doc) (display doc out) (display "<br>" out)) docs)
       (display "<p><a href='/'>menu</a><p>" out)
       (get-output-string out))))
 
@@ -53,8 +53,7 @@
 (get "/date/:date"
   (lambda (req)
     (let ((date (params req 'date)))
-      (resp (map id-datetime-subject
-                 (find date=? 'datetime date))))))
+      (resp (map id-datetime-subject (find date=? 'datetime date))))))
 
 (get "/today"
   (lambda ()
@@ -81,5 +80,9 @@
       (insert 'subject subject 'detail detail)
       (redirect "/all"))))
 
-(load)
-(run)
+; 戻ってこない。止めようがない。
+(define start
+  (lambda () (load) (run)))
+
+(start)
+
