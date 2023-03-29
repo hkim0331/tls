@@ -80,9 +80,4 @@
       (insert 'subject subject 'detail detail)
       (redirect "/all"))))
 
-; 戻ってこない。止めようがない。
-(define start
-  (lambda () (load) (run)))
-
-(start)
-
+(define th1 (thread (thunk (load) (run))))
