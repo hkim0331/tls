@@ -62,7 +62,7 @@
   (lambda (filename)
     (call-with-output-file
       filename
-      (lambda (out) (write *db* out))
+      (lambda (out) (pretty-write *db* out))
       #:exists 'replace)))
 
 (define save
@@ -141,6 +141,7 @@
 (define db-test
   (lambda ()
     (init)
+    (save)
     (load)
     ;;
     (insert 'given-name "akari" 'family-name "kimura")
@@ -170,6 +171,4 @@
     (save)
     ))
 
-(db-test)
-
-(display (find string<? 'datetime "2024"))
+; (db-test)
