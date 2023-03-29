@@ -14,6 +14,10 @@
 ```
 % docker run -it --rm -p 8000:8000 --mount type=bind,source="$(pwd)",target=/workspace hkim0331/racket bash
 ```
+## 0.3.23-SNAPSHPT
+- docker-compose.yml の version
+- WSL で (define th1 (thread (thunk (load) (run)))) がエラー。
+- gitignored db.dat
 
 ## 0.3.22 - 2023-03-29
 - fixed: セーブが 1 行長すぎ。s/write/pretty-write/
