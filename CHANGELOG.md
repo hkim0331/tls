@@ -14,13 +14,17 @@
 ```
 % docker run -it --rm -p 8000:8000 --mount type=bind,source="$(pwd)",target=/workspace hkim0331/racket bash
 ```
+## 0.3.23 - 2023-03-29
+WSL で dev container
+- docker-compose.yml の version 2.2 か 3.3 じゃないと WSL でエラー
+- WSL で (define th1 (thread (thunk (load) (run)))) がエラー
+- gitignored db.dat
 
 ## 0.3.22 - 2023-03-29
 - fixed: セーブが 1 行長すぎ。s/write/pretty-write/
 
 ## 0.3.21 - 2023-03-29
 - devcontainer の導入手順をやや細かく。
-
 
 ## 0.3.20 - 2023-03-28
 - raco pkg install date をやめて racket/date を使う
