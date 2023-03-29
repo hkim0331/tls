@@ -160,10 +160,9 @@
     (display (find string<? 'datetime "2023") out)
     (display (find string<? 'datetime "2024") out)
     (display (find string=? 'wbc "japan") out)
-    ;;
     (display (has-key 'wbc) out)
     (display (first (find string=? 'result "gold")) out)
-    (find = 'id 8)
+    (display (find = 'id 8) out)
     ;;
     (display (get-output-string out))
     ;;
