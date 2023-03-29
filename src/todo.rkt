@@ -80,7 +80,4 @@
       (insert 'subject subject 'detail detail)
       (redirect "/all"))))
 
-(define start
-  (thunk ((load) (run)))
-
-(start)
+(define th1 (thread (thunk (load) (run))))
