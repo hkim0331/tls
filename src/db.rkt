@@ -17,6 +17,7 @@
   has-key    ; (has-key 'key)
   load       ; load saved documents into memory
   save       ; save documents into file
+  now        ; returns iso-8601 timestamp
   today      ; returns todays date string yyyy-mm-dd
   )
 
@@ -31,11 +32,11 @@
       '()
       (first obj))))
 
-; (define today
-;   (lambda()
-;     (substring (current-date-string-iso-8601 #t) 0 10)))
+(define now
+  (lambda () (date->string (current-date) #t)))
+
 (define today
-  (lambda () (date->string (current-date) #f)))
+  (lambda () (substring (now) 0 10)))
 
 ; (today)
 
@@ -169,4 +170,6 @@
     (save)
     ))
 
-; (db-test)
+(db-test)
+
+(display (find string<? 'datetime "2024"))
