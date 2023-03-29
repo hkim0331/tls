@@ -19,7 +19,6 @@
 ## 0.3.21 - 2023-03-29
 - devcontainer の導入手順をやや細かく。
 
-
 ## 0.3.20 - 2023-03-28
 - raco pkg install date をやめて racket/date を使う
 
