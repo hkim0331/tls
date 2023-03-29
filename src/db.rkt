@@ -170,4 +170,6 @@
     (save)
     ))
 
-; (db-test)
+(db-test)
+
+(display (find string<? 'datetime "2024"))
