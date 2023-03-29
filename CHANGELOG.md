@@ -1,7 +1,6 @@
 # CHANGELOG
 
 ## Unreleased
-- doc と src 二つにドキュメントを分けるのはめんどくさいぞ。
 - raco pkg install racket-langserver できるようになったが、
   windows/wsl で体験するような関数のヘルプがポップアップしない。
   例えば、wsl vscode では null? にホバリングすると
@@ -9,10 +8,16 @@
   でも multipass/docker では imported from racket のみ。
 - multipass docker racket で Magic Racket language server enable すると
   空振りの XQuartz が起動する
-- multipass docker でポート8000を公開できない。
-- DockerDesktop でも docker-compose に ports: [ "8000:8000" ] をかくと公開できない。
+- DockerDesktop では docker-compose に ports: [ "8000:8000" ] を入れると公開できない。
   docker-compose の設定じゃなく、DockerDesktop の隠れた力でポート公開している感じ。
 
+- (備考, バインドマウントの仕方)
+```
+% docker run -it --rm -p 8000:8000 --mount type=bind,source="$(pwd)",target=/workspace hkim0331/racket bash
+```
+
+## 0.3.21 - 2023-03-29
+- devcontainer の導入手順をやや細かく。
 
 ## 0.3.20 - 2023-03-28
 - raco pkg install date をやめて racket/date を使う

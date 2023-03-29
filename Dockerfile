@@ -16,7 +16,9 @@ RUN groupadd --gid $USER_GID $USERNAME \
 RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 USER $USERNAME
+
 WORKDIR /home/$USERNAME
+
 RUN raco pkg install --auto racket-langserver
 
 CMD ["racket"]
