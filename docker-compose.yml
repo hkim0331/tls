@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.3'
 services:
   racket:
     image: hkim0331/racket
