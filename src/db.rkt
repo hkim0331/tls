@@ -17,6 +17,7 @@
   has-key    ; (has-key 'key)
   load       ; load saved documents into memory
   save       ; save documents into file
+  now        ; returns iso-8601 timestamp
   today      ; returns todays date string yyyy-mm-dd
   )
 
@@ -31,11 +32,11 @@
       '()
       (first obj))))
 
-; (define today
-;   (lambda()
-;     (substring (current-date-string-iso-8601 #t) 0 10)))
+(define now
+  (lambda () (date->string (current-date) #t)))
+
 (define today
-  (lambda () (date->string (current-date) #f)))
+  (lambda () (substring (now) 0 10)))
 
 ; (today)
 
@@ -61,7 +62,7 @@
   (lambda (filename)
     (call-with-output-file
       filename
-      (lambda (out) (write *db* out))
+      (lambda (out) (pretty-write *db* out))
       #:exists 'replace)))
 
 (define save
@@ -140,6 +141,7 @@
 (define db-test
   (lambda ()
     (init)
+    (save)
     (load)
     ;;
     (insert 'given-name "akari" 'family-name "kimura")
@@ -160,10 +162,9 @@
     (display (find string<? 'datetime "2023") out)
     (display (find string<? 'datetime "2024") out)
     (display (find string=? 'wbc "japan") out)
-    ;;
     (display (has-key 'wbc) out)
     (display (first (find string=? 'result "gold")) out)
-    (find = 'id 8)
+    (display (find = 'id 8) out)
     ;;
     (display (get-output-string out))
     ;;

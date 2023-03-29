@@ -4,10 +4,11 @@ services:
     image: hkim0331/racket
     restart: always
     user: vscode
-    ports:
-      - "8000:8000"
+    # in DockerDesktop, can not connect if next lines enabled
+    # but in Multipass, the port forwarding is required
+    # ports:
+    #   - "8000:8000"
     volumes:
       - .:/workspace:cached
     working_dir: /workspace
     command: /bin/sh -c "while sleep 1000; do :; done"
-    # command: racket src/todo.rkt
