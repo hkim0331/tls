@@ -14,6 +14,10 @@
 ```
 % docker run -it --rm -p 8000:8000 --mount type=bind,source="$(pwd)",target=/workspace hkim0331/racket bash
 ```
+
+## 0.3.24 - 2023-03-30
+Docker, devcontainer の理解がちょっと進んだ。
+
 ## 0.3.23 - 2023-03-29
 WSL で dev container
 - docker-compose.yml の version 2.2 か 3.3 じゃないと WSL でエラー
