@@ -1,14 +1,13 @@
-version: '3.3'
+version: '3.9'
 services:
   racket:
     image: hkim0331/racket
     restart: always
     user: vscode
-    # in DockerDesktop, can not connect if next lines enabled
-    # but in Multipass, the port forwarding is required
+    # does not work on DockerDesktop nor WSL if enabled
     # ports:
     #   - "8000:8000"
     volumes:
-      - .:/workspace:cached
+      - .:/workspace
     working_dir: /workspace
     command: /bin/sh -c "while sleep 1000; do :; done"
