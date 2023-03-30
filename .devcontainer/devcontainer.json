@@ -1,16 +1,11 @@
 {
     "name": "Racket",
-
+    "service": "racket",
+    "remoteUser": "vscode",
+    "workspaceFolder": "/workspace",
     "dockerComposeFile": [
         "../docker-compose.yml"
     ],
-
-    "service": "racket",
-
-    "workspaceFolder": "/workspace",
-
-    "remoteUser": "vscode",
-
     "customizations": {
         "vscode": {
             "settings": {
