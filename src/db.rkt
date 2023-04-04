@@ -1,13 +1,11 @@
 #lang racket
-;; database システムを作ろう。これと spin で、td-app を作る。
-;; td-app は今日やったこと、今日やることをネットから入力、検索できるアプリとする。
+;; database システムを作ろう。これと spin で、todo アプリを作る。
+;; todo アプリはやったこと、やることをネットから入力、検索できるアプリとする。
 ;;
 ;; * database ::= document の集まり
 ;; * document ::= entry の集まり
 ;; * entry    ::= (key entry) でキー、(valye entry) でバリューが取り出せるオブジェクト
 ;;
-;; require
-;; $ raco pkg install date
 
 (provide
   init       ; initialize database
@@ -21,7 +19,6 @@
   today      ; returns todays date string yyyy-mm-dd
   )
 
-;(require date)
 (require racket/date)
 (date-display-format 'iso-8601)
 
@@ -41,16 +38,21 @@
 ; (today)
 
 (define *db* '())
+
 (define documents (lambda () *db*))
+
 (define id #f)
-; db はファイルに保存
+
+;; db はファイルに保存
 (define db-dat (string-append (path->string (current-directory)) "/db.dat"))
 
 (define init
   (lambda ()
     (set! *db* '())))
 
-;; id の定義は最初の load のあと
+;; id の定義は最初の load のあとで
+;; (define id (id-clojure)) のように。
+;; load に組み込むのが自然か？
 (define id-closure
   (lambda ()
     (let ((n (length (documents))))
@@ -81,15 +83,24 @@
    (load-from db-dat)
    (set! id (id-closure))))
 
-(define make-entry
-  (lambda (key value) (cons key (cons value '()))))
+;;
+;; define database, documents, entries
+;;
+
+;; entries
 
 (define key first)
 (define val second)
 
+(define make-entry
+  (lambda (key value) (cons key (cons value '()))))
+
 (define find-entry
   (lambda (k doc)
     (null-or-first (filter (lambda (entry) (eq? k (key entry))) doc))))
+
+
+;; document には作成した日付 datetime と通し番号 id をつける。
 
 (define make-doc
   (lambda (key value . more)
@@ -99,8 +110,6 @@
         (make-entry key value)
         (apply make-doc more)))))
 
-; (define make-datetime
-;   (lambda () (make-entry 'datetime (current-date-string-iso-8601 #t))))
 (define make-datetime
   (lambda () (make-entry 'datetime (date->string (current-date) #t))))
 
@@ -120,6 +129,7 @@
       (set! *db* (cons (add-id (add-datetime doc)) *db*))
       (save))))
 
+;; FIXME: funtion name?
 (define entry
   (lambda (k d)
     (null-or-first (filter (lambda (d) (eq? k (car d))) d))))
@@ -136,13 +146,12 @@
   (lambda (key)
     (find (lambda (k v) #t) key '())))
 
-;; FIXME: 破壊したままはよくない。
-;;        データをどっかに退避して、テストの後、戻せるように。
+
 (define db-test
   (lambda ()
+    ;; あとで戻せるように back に退避
+    (define back *db*)
     (init)
-    (save)
-    (load)
     ;;
     (insert 'given-name "akari" 'family-name "kimura")
     (insert 'given-name "isana" 'family-name "kimura")
@@ -168,7 +177,8 @@
     ;;
     (display (get-output-string out))
     ;;
-    (save)
+    ;; 退避したデータベースを戻す
+    (define *db* back)
     ))
 
-; (db-test)
+(db-test)

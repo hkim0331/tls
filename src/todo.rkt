@@ -80,10 +80,13 @@
       (insert 'subject subject 'detail detail)
       (redirect "/all"))))
 
-; WSL では動かない。
-; (define th1 (thread (thunk (load) (run))))
-
 (define start
   (lambda () (load) (run)))
 
 (start)
+
+
+; この辺もうちょっと調査が必要。
+; WSL では動かない。
+; (define th1 (thread (thunk (load) (run))))
+
