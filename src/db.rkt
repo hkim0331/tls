@@ -41,7 +41,7 @@
 
 (define documents (lambda () *db*))
 
-(define id #f)
+
 
 ;; db はファイルに保存
 (define db-dat (string-append (path->string (current-directory)) "/db.dat"))
@@ -77,6 +77,8 @@
         filename
         (lambda (in) (set! *db* (read in))))
       (set! *db* '()))))
+; serial number
+(define id #f)
 
 (define load
   (lambda ()
@@ -150,6 +152,7 @@
 (define db-test
   (lambda ()
     ;; あとで戻せるように back に退避
+    (load)
     (define back *db*)
     (init)
     ;;
@@ -178,7 +181,7 @@
     (display (get-output-string out))
     ;;
     ;; 退避したデータベースを戻す
-    (define *db* back)
+    (set! *db* back)
     ))
 
-(db-test)
+; (db-test)
