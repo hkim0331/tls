@@ -1,1 +1,1 @@
-(((id 3) (datetime "2023-03-27T02:37:51Z") (subject "さらに追加する") (detail "さらに追加する。\r\nこれ、HTML できたりすると嬉しい？")) ((id 2) (datetime "2023-03-27T02:36:38Z") (subject "test: create") (detail "新しい TODO を追加する")) ((id 1) (datetime "2023-03-27T01:51:33Z") (subject "スタートを工夫する") (detail "db.dat が存在しないときにどうするか。\r\n")))
+()

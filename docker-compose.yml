@@ -4,6 +4,8 @@ services:
     image: hkim0331/racket
     restart: always
     user: vscode
+    ports:
+      - 8000:8000
     volumes:
       - .:/workspace:cached
     working_dir: /workspace
