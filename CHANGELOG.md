@@ -1,7 +1,6 @@
 # CHANGELOG
 
 ## Unreleased
-- doc と src 二つにドキュメントを分けるのはめんどくさいぞ。
 - raco pkg install racket-langserver できるようになったが、
   windows/wsl で体験するような関数のヘルプがポップアップしない。
   例えば、wsl vscode では null? にホバリングすると
@@ -9,7 +8,33 @@
   でも multipass/docker では imported from racket のみ。
 - multipass docker racket で Magic Racket language server enable すると
   空振りの XQuartz が起動する
+- DockerDesktop では docker-compose に ports: [ "8000:8000" ] を入れると公開できない。
+  docker-compose の設定じゃなく、DockerDesktop の隠れた力でポート公開している感じ。
+- (備考, バインドマウントの仕方)
+```
+% docker run -it --rm -p 8000:8000 --mount type=bind,source="$(pwd)",target=/workspace hkim0331/racket bash
+```
 
+## 0.3.35 - 2023-04-04
+- db-test の前後で、本番データベースを退避/復活させる。
+
+## 0.3.24 - 2023-03-30
+Docker, devcontainer の理解がちょっと進んだ。
+
+## 0.3.23 - 2023-03-29
+WSL で dev container
+- docker-compose.yml の version 2.2 か 3.3 じゃないと WSL でエラー
+- WSL で (define th1 (thread (thunk (load) (run)))) がエラー
+- gitignored db.dat
+
+## 0.3.22 - 2023-03-29
+- fixed: セーブが 1 行長すぎ。s/write/pretty-write/
+
+## 0.3.21 - 2023-03-29
+- devcontainer の導入手順をやや細かく。
+
+## 0.3.20 - 2023-03-28
+- raco pkg install date をやめて racket/date を使う
 
 ## 0.3.19 - 2023-03-27
 - update db.rkt

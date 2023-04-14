@@ -1,13 +1,11 @@
 #lang racket
-;; database システムを作ろう。これと spin で、td-app を作る。
-;; td-app は今日やったこと、今日やることをネットから入力、検索できるアプリとする。
+;; database システムを作ろう。これと spin で、todo アプリを作る。
+;; todo アプリはやったこと、やることをネットから入力、検索できるアプリとする。
 ;;
 ;; * database ::= document の集まり
 ;; * document ::= entry の集まり
 ;; * entry    ::= (key entry) でキー、(valye entry) でバリューが取り出せるオブジェクト
 ;;
-;; require
-;; $ raco pkg install date
 
 (provide
   init       ; initialize database
@@ -17,10 +15,12 @@
   has-key    ; (has-key 'key)
   load       ; load saved documents into memory
   save       ; save documents into file
+  now        ; returns iso-8601 timestamp
   today      ; returns todays date string yyyy-mm-dd
   )
 
-(require date)
+(require racket/date)
+(date-display-format 'iso-8601)
 
 ;; FIXME: function name?
 (define null-or-first
@@ -29,21 +29,30 @@
       '()
       (first obj))))
 
+(define now
+  (lambda () (date->string (current-date) #t)))
+
 (define today
-  (lambda()
-    (substring (current-date-string-iso-8601 #t) 0 10)))
+  (lambda () (substring (now) 0 10)))
+
+; (today)
 
 (define *db* '())
+
 (define documents (lambda () *db*))
-(define id '())
-; db はファイルに保存
+
+
+
+;; db はファイルに保存
 (define db-dat (string-append (path->string (current-directory)) "/db.dat"))
 
 (define init
   (lambda ()
     (set! *db* '())))
 
-;; id の定義は load のあと
+;; id の定義は最初の load のあとで
+;; (define id (id-clojure)) のように。
+;; load に組み込むのが自然か？
 (define id-closure
   (lambda ()
     (let ((n (length (documents))))
@@ -55,7 +64,7 @@
   (lambda (filename)
     (call-with-output-file
       filename
-      (lambda (out) (write *db* out))
+      (lambda (out) (pretty-write *db* out))
       #:exists 'replace)))
 
 (define save
@@ -68,21 +77,32 @@
         filename
         (lambda (in) (set! *db* (read in))))
       (set! *db* '()))))
+; serial number
+(define id #f)
 
 (define load
   (lambda ()
    (load-from db-dat)
    (set! id (id-closure))))
 
-(define make-entry
-  (lambda (key value) (cons key (cons value '()))))
+;;
+;; define database, documents, entries
+;;
+
+;; entries
 
 (define key first)
 (define val second)
 
+(define make-entry
+  (lambda (key value) (cons key (cons value '()))))
+
 (define find-entry
   (lambda (k doc)
     (null-or-first (filter (lambda (entry) (eq? k (key entry))) doc))))
+
+
+;; document には作成した日付 datetime と通し番号 id をつける。
 
 (define make-doc
   (lambda (key value . more)
@@ -93,7 +113,7 @@
         (apply make-doc more)))))
 
 (define make-datetime
-  (lambda () (make-entry 'datetime (current-date-string-iso-8601 #t))))
+  (lambda () (make-entry 'datetime (date->string (current-date) #t))))
 
 (define add-datetime
   (lambda (doc) (cons (make-datetime) doc)))
@@ -111,6 +131,7 @@
       (set! *db* (cons (add-id (add-datetime doc)) *db*))
       (save))))
 
+;; FIXME: funtion name?
 (define entry
   (lambda (k d)
     (null-or-first (filter (lambda (d) (eq? k (car d))) d))))
@@ -127,9 +148,12 @@
   (lambda (key)
     (find (lambda (k v) #t) key '())))
 
-;; test
+
 (define db-test
   (lambda ()
+    ;; あとで戻せるように back に退避
+    (load)
+    (define back *db*)
     (init)
     ;;
     (insert 'given-name "akari" 'family-name "kimura")
@@ -150,14 +174,14 @@
     (display (find string<? 'datetime "2023") out)
     (display (find string<? 'datetime "2024") out)
     (display (find string=? 'wbc "japan") out)
-    ;;
     (display (has-key 'wbc) out)
     (display (first (find string=? 'result "gold")) out)
-    (find = 'id 8)
+    (display (find = 'id 8) out)
     ;;
     (display (get-output-string out))
     ;;
-    (save)
+    ;; 退避したデータベースを戻す
+    (set! *db* back)
     ))
 
 ; (db-test)

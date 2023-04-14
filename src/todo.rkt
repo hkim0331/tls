@@ -14,7 +14,7 @@
 (define redirect
   (lambda (url)
     (define h (header #"Location" (string->bytes/utf-8 url)))
-    `(302 (,h) "redirect")))
+    `(303 (,h) "redirect")))
 
 (define getf
   (lambda (doc key)
@@ -37,8 +37,7 @@
 (define resp
   (lambda (docs)
     (let ((out (open-output-string)))
-      (map (lambda (doc) (display doc out) (display "<br>" out))
-           docs)
+      (map (lambda (doc) (display doc out) (display "<br>" out)) docs)
       (display "<p><a href='/'>menu</a><p>" out)
       (get-output-string out))))
 
@@ -54,8 +53,7 @@
 (get "/date/:date"
   (lambda (req)
     (let ((date (params req 'date)))
-      (resp (map id-datetime-subject
-                 (find date=? 'datetime date))))))
+      (resp (map id-datetime-subject (find date=? 'datetime date))))))
 
 (get "/today"
   (lambda ()
@@ -82,5 +80,16 @@
       (insert 'subject subject 'detail detail)
       (redirect "/all"))))
 
-(load)
-(run)
+(post "/clicked"
+  (lambda (req)
+    "<h1>htmx</h1>"))
+
+(define start
+  (lambda () (load) (run)))
+
+(start)
+
+
+; この辺もうちょっと調査が必要。
+; WSL では動かない。
+; (define th1 (thread (thunk (load) (run))))
