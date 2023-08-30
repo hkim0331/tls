@@ -14,7 +14,7 @@
 (define redirect
   (lambda (url)
     (define h (header #"Location" (string->bytes/utf-8 url)))
-    `(302 (,h) "redirect")))
+    `(303 (,h) "redirect")))
 
 (define getf
   (lambda (doc key)
@@ -80,6 +80,10 @@
       (insert 'subject subject 'detail detail)
       (redirect "/all"))))
 
+(post "/clicked"
+  (lambda (req)
+    "<h1>htmx</h1>"))
+
 (define start
   (lambda () (load) (run)))
 
@@ -89,4 +93,3 @@
 ; この辺もうちょっと調査が必要。
 ; WSL では動かない。
 ; (define th1 (thread (thunk (load) (run))))
-
