@@ -56,6 +56,18 @@ Scheme のコードを入力したらそれを実行してくれるアプリを
 `Scheme の処理系`
 っていうとアタマ良さそうな雰囲気を出せる。
 
+### https://replit.com が手軽
+
+Mac/Windows ともに、<https://replit.com> に無料のアカウント作って、さっさと始めるのが一番。
+
+- scheme
+- racket
+- racket(untyped)
+
+ってのが見つかるが、scheme か racket(untyped) を選ぼう。
+真ん中のはちょっと別なフレーバーの scheme になる。
+
+
 ### macos で minimal-racket は大変
 
 いろんなプログラミングを始める際、Mac はいろいろ楽なんだが、
