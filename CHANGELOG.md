@@ -1,26 +1,96 @@
 # CHANGELOG
 
 ## Unreleased
-- doc と src 二つにドキュメントを分けるのはめんどくさいぞ。
 - raco pkg install racket-langserver できるようになったが、
-  windows wsl2 で体験するような関数のヘルプがポップアップしない。
-  例えば、wsl2 vscode では null? にホバリングすると
+  windows/wsl で体験するような関数のヘルプがポップアップしない。
+  例えば、wsl vscode では null? にホバリングすると
   imported from "racket" - online docs 以下の小さいウィンドウが出る。
-  でも multipass docker では imported from racket のみ。
-- multipass docker racket でXQuartz が起動するのはなぜ？
-- multipass docker でイメージを作れるか？
+  でも multipass/docker では imported from racket のみ。
+- multipass docker racket で Magic Racket language server enable すると
+  空振りの XQuartz が起動する
+- DockerDesktop では docker-compose に ports: [ "8000:8000" ] を入れると公開できない。
+  docker-compose の設定じゃなく、DockerDesktop の隠れた力でポート公開している感じ。
+- (備考, バインドマウントの仕方)
+```
+% docker run -it --rm -p 8000:8000 --mount type=bind,source="$(pwd)",target=/workspace hkim0331/racket bash
+```
 
+## 0.3.35 - 2023-04-04
+- db-test の前後で、本番データベースを退避/復活させる。
+
+## 0.3.24 - 2023-03-30
+Docker, devcontainer の理解がちょっと進んだ。
+
+## 0.3.23 - 2023-03-29
+WSL で dev container
+- docker-compose.yml の version 2.2 か 3.3 じゃないと WSL でエラー
+- WSL で (define th1 (thread (thunk (load) (run)))) がエラー
+- gitignored db.dat
+
+## 0.3.22 - 2023-03-29
+- fixed: セーブが 1 行長すぎ。s/write/pretty-write/
+
+## 0.3.21 - 2023-03-29
+- devcontainer の導入手順をやや細かく。
+
+## 0.3.20 - 2023-03-28
+- raco pkg install date をやめて racket/date を使う
+
+## 0.3.19 - 2023-03-27
+- update db.rkt
+  db.dat がない時、*db* に () をセットしてスタート。
+  insert/create 時に db.dat を作成する。
+
+## 0.3.18 - 2023-03-27
+- link from all to detail
+
+  (format "&lt;a href='/detail/~a'>~a</a> ~a ~a" id id datetime subject)
+
+- db.rkt: (today) returns "yyyy-mm-dd"
+- defined (get "/today")
+
+## 0.3.17 - 2023-03-26
+- defined (get "/detail/:n")
+
+## 0.3.16 - 2023-03-26
+- FIXED BUG: id がセッションを超えてインクリメントする。
+
+## 0.3.15 - 2023-03-26
+- post も (params req 'name) で受け取れる。
+- defined (post "/create")
+- added bump-version.sh
+- 絶対パス (string-append (path->string (current-directory)) "/db.dat")
+- renamed scm-db.rkt as db.rkt
+- defined (get "/all")
+
+## 0.3.14 - 2023-03-26
+- defineed scm-db.rkt:scm-db-test
+- todo.rkt
+- defined (rediret url)
+- defined (get "/all")
+
+## 0.2.13 - 2023-03-25
+- (make-id) closure (define id (make-id))
+- insert 時にエントリーに ('id (id)) を付与。
+- provide/require
+
+## 0.2.12 - 2023-03-25
+- update README.md 
+- make-doc を呼び出しに使わず、insert の内部で処理する
+- find の補助関数を find 内部におさめる
+- has-key
+- raco pkg install
 
 ## 0.2.11 - 2023-03-24
-### BREAKING entries, (find) を変更
+### BREAKING entries, find を変更
 - database  ::= document の集まり
 - documents ::= entry の集まり
 - entries   ::= (key entry) でキー、
                 (val entry) でバリューが取り出せる entry の集まり
-- find-all を基本形に。find-one は　(first (find-one)) でよい
-- module で。provide するのは init, insert, find, list, 
+- find-all を基本形に。find-one は (first (find-one)) でよい
+- module で。provide するのは init, insert, find, list,
 
-## 0.2.10 
+## 0.2.10
 - db.rkt find が動くようになった。次は find-all
 - Magic Racket の選んで alt+enter はめんどくさい。
   それよりも、右上ボタンの Load file in REPL のほうかな。
@@ -31,6 +101,13 @@
   $ sudo dockerd
   $ code .
   <Reopen in Container>
+
+## 0.1.9 - 2023-03-25
+- renamed 
+  app-web.rkt -> spin-web.rkt
+  db-scm.rkt  -> scm-db.rkt
+- dot-pair やめた
+
 
 ## 0.1.8 - 2023-03-24
 - https://zenn.dev/yyu/articles/3f900eaa2aa860 を参考に、

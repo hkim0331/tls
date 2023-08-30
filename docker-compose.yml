@@ -1,10 +1,15 @@
-version: '3.9'
+version: '3.3'
 services:
   racket:
     image: hkim0331/racket
     restart: always
     user: vscode
+    # does not work on DockerDesktop nor WSL if enabled
+    # ports:
+    #   - "8000:8000"
     volumes:
-      - .:/workspace:cached
+      - .:/workspace
     working_dir: /workspace
-    command: /bin/sh -c "while sleep 1000; do :; done"
+    entrypoint:
+      - sleep
+      - infinity

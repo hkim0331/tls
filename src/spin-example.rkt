@@ -1,4 +1,5 @@
 #lang racket
+;; $ raco pkg install https://github.com/dmac/spin.git
 
 (require (planet dmac/spin))
 (require web-server/templates)
@@ -8,9 +9,9 @@
 
 (get "/arg/:name"
   (lambda (req)
-    (string-append 
+    (string-append
       "You are: " (params req 'name)
-      "<p>Need meta charset header to display Japanese characters. But it simple.</p>" 
+      "<p>Need meta charset header to display Japanese characters. But it simple.</p>"
       "<p>next, try /plus/n/m</p>")))
 
 (get "/plus/:x/:y"
@@ -23,7 +24,7 @@
 
 (get "/form"
   (lambda ()
-    (string-append 
+    (string-append
        "<p>Input something</p>"
        "<form method='post'>
         <input type='text' name='name'>

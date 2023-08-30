@@ -1,5 +1,5 @@
 #lang racket
-(require "atom.rkt")
+(require "00-atom.rkt")
 
 (define lat?
   (lambda (xs)
