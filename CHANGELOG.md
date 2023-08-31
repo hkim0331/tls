@@ -15,6 +15,10 @@
 % docker run -it --rm -p 8000:8000 --mount type=bind,source="$(pwd)",target=/workspace hkim0331/racket bash
 ```
 
+## 0.4.0-SNAPSHOT
+- バカと思ってた人たちはやっぱりバカだった。
+  学生じゃないよ。教員。
+
 ## 0.3.35 - 2023-04-04
 - db-test の前後で、本番データベースを退避/復活させる。
 
@@ -75,7 +79,7 @@ WSL で dev container
 - provide/require
 
 ## 0.2.12 - 2023-03-25
-- update README.md 
+- update README.md
 - make-doc を呼び出しに使わず、insert の内部で処理する
 - find の補助関数を find 内部におさめる
 - has-key
@@ -103,7 +107,7 @@ WSL で dev container
   <Reopen in Container>
 
 ## 0.1.9 - 2023-03-25
-- renamed 
+- renamed
   app-web.rkt -> spin-web.rkt
   db-scm.rkt  -> scm-db.rkt
 - dot-pair やめた
