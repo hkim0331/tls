@@ -1,4 +1,5 @@
 #lang racket/base
+
 (provide atom?)
 
 (define atom?
