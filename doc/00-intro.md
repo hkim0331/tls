@@ -8,7 +8,7 @@
 
 ## CommonLisp
 
-強力さのため、姿、形を変えた LISP がたくさん登場し、ユーザが混乱した。
+強力さのゆえに、姿、形を変えた LISP がたくさん登場し、ユーザが混乱した。
 混乱を収集する規格として CommonLisp が制定された。1990年ごろ。
 
 その規格に則った実装が複数ある。
@@ -74,7 +74,6 @@ ubuntu$ apt search scheme
 読んだとしても理解できる部分だけをつまみ食いするだけだろ。
 そう言うのがありの分野もあるだろう。でもこの本は違うんです。
 
-
 ### Windows で Racket
 
 Windows に直接 Racket をインストールするよりは
@@ -99,13 +98,19 @@ Racket のフォルダで、`code .` で
 Windows 側の VScode が起動して、WSL のフォルダが開く。
 
 ```
-WDL$ code .
+WSL$ code .
 ```
 
+MagickRacket の Alt + Enter が S 式の評価じゃなく、1 行評価なんで、
+REPL でいろいろ試したい時、いちいち評価する S 式を選択するのが面倒だ、hkimura は。
+
+### DrRacket
+
 他に、DrRacket っつう IDE をどさっと Windows に入れるって作戦もある。
+DrRacket は racket 言語 + VScode みたいなエディタをひとまとまりにしたもの。
 
-ReplIt でも、Guile が利用できる。でも、ReplIt はいつもお忙しのようだ。
-
+せっかく小さい Scheme なのに構えがデカすぎないかい、
+なんてつまらないことで hkimura は敬遠気味。
 
 ### Mac で Racket
 
@@ -134,3 +139,6 @@ Settings の languageserver.enabled を false にする。
 ### SublimeTextで Racket
 
 Install Package で Racket を選ぶ。
+
+S 式の評価は ^, b (コントロール押したままコンマ、離して b).
+こっちの方が VScode + MagickRacket の Alt + Enter より楽だ。

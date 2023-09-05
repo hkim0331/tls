@@ -1,4 +1,5 @@
-#lang racket
+#lang racket/base
+
 (provide atom?)
 
 (define atom?
@@ -8,3 +9,9 @@
 ; (atom? 1)
 ; (atom? '())
 ; (atom? '(1))
+
+(define add1
+ (lambda (n)
+  (+ n 1)))
+
+(println "hello Racket")

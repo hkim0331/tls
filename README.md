@@ -15,7 +15,7 @@ The Little Schemer（Scheme 手習い）を読もうかい。
 
 初心者にプログラミングを教えるとして、
 選んだ言語によっては、その言語が学ぶ人の考え方に枠をはめてしまうことがある。
-学んだはずの C や Python などで大きいプログラム作ろうとしたら急激に難易度上がったりするだろ。
+学んだはずの C や Python でちょっと大きいプログラム作ろうとしたら急激に難易度上がったりするだろ。
 そうでなくても、出来合いのライブラリを組み合わせる以外、
 まともなプログラムできなかったりするだろ。
 それ、見逃しているもの、学び損ねたものがあるんだよ。
@@ -35,11 +35,10 @@ C や Python などとは一味も二味も違う Scheme で、
 
 **[2023-08-30 追記]**
 教えるつもりない人、たくさん。
-今日の会議、無責任発言頭来て、俺は席を立って会議室ほとんど出るとこだった。
+今日の会議、無責任発言に頭来て、俺は席を立って会議室ほとんど出るとこだった。
 （大人気ない）と思い直し、「それ言ったら終わりだろ！」って一喝して席に戻った。
 仲間内だから許されることじゃなく、そういうつもりで教壇に立ってるんだな。
-下らない学生には「やさしい人」なんだろうな。見抜いちゃう真面目な学生もいるぞ。
-日本沈没は止まらない。最初に沈むのは身近かなところかも。
+学生に「やる気がない」って言う資格ない。
 
 ## 準備
 
@@ -103,7 +102,7 @@ minimal-racket じゃなく、DrRacket っていろいろ詰め込んだアプ�
 
 ### VScode DevContainer
 
-DockerDesktop が Mac にインストールされているって前提で。
+DockerDesktop が Mac/Windows にインストールされているって前提で。
 
 https://github.com/hkim0331/tls.git に racket のコンテナ作ったんで、
 クローンし、VScode で開く。
@@ -119,6 +118,9 @@ https://github.com/hkim0331/tls.git に racket のコンテナ作ったんで、
 Docker イメージのダウンロードに時間はかかるが、最初の一回だけ。あとは簡単。
 こっちだと mac に racket 入れる必要ない。コンテナに入ってるから。
 
+この方法は Windows でもいけます。
+
+
 ### Windows だと？
 
 Windows に直接 Racket 入れるもできるが、WSL 使うのがいい。
@@ -126,28 +128,43 @@ Windows に直接 Racket 入れるもできるが、WSL 使うのがいい。
 WSL で ubuntu 入れておき、
 
 ```
-$ sudo apt install racket
+> wsl
+WSL$ sudo apt install racket
 ```
 
 で racket 入るんで、そのあと、
 
 ```
-$ code .
+WSL$ code .
 ```
 
-必要なライブラリ(例えば racket-langsever)は、
+WSL って名前の機能拡張があるんで、それをインストールしておく。
+VScode の起動が確認できたら一旦終了、
+git コマンドを WSL に入れてこのリポジトリをクローンする。
+
+```
+WSL$ sudo apt install git
+WSL$ git clone https://githhub.com/hkim0331/tls.git
+WSL$ cd tls
+WSL$ code .
+```
+
+<!--
+他に必要なライブラリ(例えば racket-langsever)は、
 
 ```
 $ raco pkg install racket-langserver
 ```
 で。
+-->
 
 もちろん、WSL で Docker やってもよい。
-Windows に DockerDesktop って選択もあるけど、
-WSL に Docker の方がおすすめ。
-なぜかっつうと、Windows に DockerDesktop のインストールに何度か失敗、
-あきらめたんで。
 
+Windows に DockerDesktop って選択もあるけど、
+Docker するなら、
+WSL に Docker の方がおすすめ。Windows 側への Docker のインストールは
+何度も失敗、やっとインストールできたと思ったら、
+立ち上げると同時にファンが唸りっぱなし。
 
 ### 準備が大変？
 
@@ -156,6 +173,15 @@ WSL に Docker の方がおすすめ。
 紙と鉛筆でプログラミングをとことん考えようってのが基本だ。
 行けるさ。
 
-### doc フォルダに
+### (deprecated 2023-08-30) doc フォルダに
 
 この後、doc フォルダに資料書き足していきます。
+
+
+## src フォルダに scheme のコードと解説
+
+the little schemer をなぞるコードのほかのコードもそこに置きます。
+
+解説は doc フォルダに分けて書く予定だったけど、めんどくさいんで、
+コメント文で src フォルダ中のファイルに書きます。
+マークダウンで強調とか効かん。でも、見かけより内容だ。

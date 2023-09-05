@@ -52,3 +52,11 @@
       (else (cons (first lat) (insertR new old (rest lat)))))))
 
 (insertR 'topping 'fudge '(ice cream fudge for dessert))
+
+
+;; multirember
+;; これまでのデータは一直線の lat.
+;; cdr 部で再帰すればよかったが、ここから引数はリストに。
+;; なんのことはない、car 部でも再帰するようにすればいいのさ。
+
+
