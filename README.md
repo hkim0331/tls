@@ -51,120 +51,18 @@ Scheme のコードを入力したらそれを実行してくれるアプリを
 `Scheme の処理系`
 っていうとアタマ良さそうな雰囲気を出せる。
 
-### https://replit.com が手軽
+ここに書いてた内容は、やり直して
+doc/2023-09-04.md
+に書き直したので、そちらを読んでください。
 
-Mac/Windows ともに、<https://replit.com> に無料のアカウント作って、さっさと始めるのが一番。
+- https://replit.com が手軽
 
-- scheme
-- racket
-- racket(untyped)
+- Windows/WSL で racket 開始
 
-ってのが見つかるが、scheme か racket(untyped) を選ぼう。
-真ん中のはちょっと別なフレーバーの scheme になる。
+- (Windows 直かに)
 
+- hkimura どう racket してるか？
 
-### macos で minimal-racket は大変
-
-いろんなプログラミングを始める際、Mac はいろいろ楽なんだが、
-2023 年 3 月現時点で Scheme を始めるとして minimal-racket を選ぶと苦労する。
-
-```
-% brew install minimal-racket
-```
-
-これでバージョン 8.8 の最新版がインストールできるが、
-その後、外部ライブラリ、
-例えば date や、
-VScode の Magic Racket が奨励する racket-langserver ライブラリを追加すべく、
-
-```
-% raco pkg install racket-langserver
-```
-
-ってやると延々とダウンロードとコンパイルが始まって、終わらない。
-ついには、投げやりなメッセージで終了する。
-
-```
-raco pkg install: packages installed, although setup reported errors
-```
-
-VScode 立ち上げると、
-
-```
-The Racket Language Client server crashed 5 times in the last 3m...
-```
-
-minimal-racket じゃなく、DrRacket っていろいろ詰め込んだアプリもあるんだが、
-そっちなら楽なのかな？昔はオレも DrRacket 使ってた。
-プログラム打ち込むエディタまで含めた IDE と思っていい。
-でも、プログラム作成に VScode 使いたい。
-そういう人には次の VScode DevContaier がいいかも。
-
-### VScode DevContainer
-
-DockerDesktop が Mac/Windows にインストールされているって前提で。
-
-https://github.com/hkim0331/tls.git に racket のコンテナ作ったんで、
-クローンし、VScode で開く。
-
-```
-% git clone https://github.com/hkim0331/tls.git
-% cd tls
-% code .
-```
-
-「DevContainer で開き直しますか」みたいに聞かれるので、そのまま YES.
-
-Docker イメージのダウンロードに時間はかかるが、最初の一回だけ。あとは簡単。
-こっちだと mac に racket 入れる必要ない。コンテナに入ってるから。
-
-この方法は Windows でもいけます。
-
-
-### Windows だと？
-
-Windows に直接 Racket 入れるもできるが、WSL 使うのがいい。
-
-WSL で ubuntu 入れておき、
-
-```
-> wsl
-WSL$ sudo apt install racket
-```
-
-で racket 入るんで、そのあと、
-
-```
-WSL$ code .
-```
-
-WSL って名前の機能拡張があるんで、それをインストールしておく。
-VScode の起動が確認できたら一旦終了、
-git コマンドを WSL に入れてこのリポジトリをクローンする。
-
-```
-WSL$ sudo apt install git
-WSL$ git clone https://githhub.com/hkim0331/tls.git
-WSL$ cd tls
-WSL$ code .
-```
-
-<!--
-他に必要なライブラリ(例えば racket-langsever)は、
-
-```
-$ raco pkg install racket-langserver
-```
-で。
--->
-
-もちろん、WSL で Docker やってもよい。
-
-Windows に DockerDesktop って選択もあるけど、
-Docker するなら、
-WSL に Docker の方がおすすめ。Windows 側への Docker のインストールは
-何度も失敗、やっとインストールできたと思ったら、
-立ち上げると同時にファンが唸りっぱなし。
 
 ### 準備が大変？
 
@@ -173,15 +71,8 @@ WSL に Docker の方がおすすめ。Windows 側への Docker のインスト�
 紙と鉛筆でプログラミングをとことん考えようってのが基本だ。
 行けるさ。
 
-### (deprecated 2023-08-30) doc フォルダに
+### doc フォルダと src フォルダ
 
 この後、doc フォルダに資料書き足していきます。
 
-
-## src フォルダに scheme のコードと解説
-
-the little schemer をなぞるコードのほかのコードもそこに置きます。
-
-解説は doc フォルダに分けて書く予定だったけど、めんどくさいんで、
-コメント文で src フォルダ中のファイルに書きます。
-マークダウンで強調とか効かん。でも、見かけより内容だ。
+src フォルダには the little schemer をなぞるコードをそこに置きます。
