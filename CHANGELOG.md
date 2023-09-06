@@ -14,6 +14,8 @@
 ```
 % docker run -it --rm -p 8000:8000 --mount type=bind,source="$(pwd)",target=/workspace hkim0331/racket bash
 ```
+## 0.4.7 - 2023-09-06
+- docker image hkim0331/racket:0.3
 
 ## 0.4.0-SNAPSHOT
 - バカと思ってた人たちはやっぱりバカだった。
