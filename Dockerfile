@@ -2,7 +2,6 @@ From ubuntu:22.10
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DEBCONF_NOWARNINGS=yes
-ENV DEBIAN_FRONTEND=dialog
 
 ARG USERNAME=vscode
 ARG USER_UID=1000
@@ -14,12 +13,11 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && apt-get install -y sudo git sqlite3 libedit2 racket \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
-
-# TODO: enable next line before pushing this image up
 RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 USER $USERNAME
 WORKDIR /home/$USERNAME
+
 RUN raco pkg install --auto racket-langserver
 
 CMD ["racket"]

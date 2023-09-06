@@ -20,6 +20,5 @@
       ((eq? a (first lat)) #t)
       (else (member? a (rest lat))))))
 
-(member? 'meat '(mashed potatos and meat gravy))
-(member 'liver '(bagles and lox))
-
+; (member? 'meat '(mashed potatos and meat gravy))
+; (member 'liver '(bagles and lox))
