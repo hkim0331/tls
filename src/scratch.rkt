@@ -23,7 +23,7 @@
 (define-syntax-rule (my-time expr)
   (let* ((now (current-inexact-milliseconds))
          (result expr))
-    (println (format "elapsed time (millisecond) ~s"
+    (println (format "elapsed time ~s msec."
                      (- (current-inexact-milliseconds) now)))
     result))
 
