@@ -57,7 +57,16 @@
 ; (insertR 'topping 'fudge '(ice cream fudge for dessert))
 
 
-;; multirember
-;; これまでのデータは一直線の lat.
-;; cdr 部で再帰すればよかったが、ここから引数はリストに。
-;; なんのことはない、car 部でも再帰するようにすればいいのさ。
+; multirember
+; rember は最初に見つけた a を除いた lat を返した。
+; multirember が全ての a を除く。
+; multirember-all と間違えてたか。
+
+(define multirember
+  (lambda (a lat)
+    (cond
+      ((null? lat) nil)
+      ((eq? (first lat) a) (multirember a (rest lat)))
+      (else (cons (first lat) (multirember a (rest lat)))))))
+
+; (multirember '1 '(1 2 3 1 2 3 1 2 3 1 2 3 1 1 1))
