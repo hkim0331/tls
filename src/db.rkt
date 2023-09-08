@@ -4,7 +4,8 @@
 ;;
 ;; * database ::= document の集まり
 ;; * document ::= entry の集まり
-;; * entry    ::= (key entry) でキー、(valye entry) でバリューが取り出せるオブジェクト
+;; * entry    ::= (key entry) でキー、
+;;                (valye entry) でバリューが取り出せるオブジェクト
 ;;
 
 (provide

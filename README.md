@@ -13,6 +13,12 @@ The Little Schemer（Scheme 手習い）を読もうかい。
 しかし、そうじゃない授業は多い。
 単位はゲット、理解はノットな学生が増えるばかり。
 
+**[2023-08-30 追記]**
+教えるつもりない人も、たくさん。
+今日の会議、無責任発言に頭来て、俺は席を立って会議室ほとんど出るとこだった。
+（大人気ない）と思い直し、「それ言ったら終わりだろ！」って一喝して席に戻った。
+そういうつもりで教壇に立ってるんだな。学生に「やる気がない」って言う資格ない。
+
 初心者にプログラミングを教えるとして、
 選んだ言語によっては、その言語が学ぶ人の考え方に枠をはめてしまうことがある。
 学んだはずの C や Python でちょっと大きいプログラム作ろうとしたら急激に難易度上がったりするだろ。
@@ -33,13 +39,6 @@ C や Python などとは一味も二味も違う Scheme で、
 また、著者たちの独特の書き方のため、初見の人たちは面食らうだろう。
 なのでちょっと手助けします。
 
-**[2023-08-30 追記]**
-教えるつもりない人、たくさん。
-今日の会議、無責任発言頭来て、俺は席を立って会議室ほとんど出るとこだった。
-（大人気ない）と思い直し、「それ言ったら終わりだろ！」って一喝して席に戻った。
-仲間内だから許されることじゃなく、そういうつもりで教壇に立ってるんだな。
-下らない学生には「やさしい人」なんだろうな。見抜いちゃう真面目な学生もいるぞ。
-日本沈没は止まらない。最初に沈むのは身近かなところかも。
 
 ## 準備
 
@@ -52,101 +51,17 @@ Scheme のコードを入力したらそれを実行してくれるアプリを
 `Scheme の処理系`
 っていうとアタマ良さそうな雰囲気を出せる。
 
-### https://replit.com が手軽
+ここに書いてた内容は、やり直して
+doc/2023-09-04.md
+に書き直したので、そちらを読んでください。
 
-Mac/Windows ともに、<https://replit.com> に無料のアカウント作って、さっさと始めるのが一番。
+- https://replit.com が手軽
 
-- scheme
-- racket
-- racket(untyped)
+- Windows/WSL で racket 開始
 
-ってのが見つかるが、scheme か racket(untyped) を選ぼう。
-真ん中のはちょっと別なフレーバーの scheme になる。
+- (Windows 直かに)
 
-
-### macos で minimal-racket は大変
-
-いろんなプログラミングを始める際、Mac はいろいろ楽なんだが、
-2023 年 3 月現時点で Scheme を始めるとして minimal-racket を選ぶと苦労する。
-
-```
-% brew install minimal-racket
-```
-
-これでバージョン 8.8 の最新版がインストールできるが、
-その後、外部ライブラリ、
-例えば date や、
-VScode の Magic Racket が奨励する racket-langserver ライブラリを追加すべく、
-
-```
-% raco pkg install racket-langserver
-```
-
-ってやると延々とダウンロードとコンパイルが始まって、終わらない。
-ついには、投げやりなメッセージで終了する。
-
-```
-raco pkg install: packages installed, although setup reported errors
-```
-
-VScode 立ち上げると、
-
-```
-The Racket Language Client server crashed 5 times in the last 3m...
-```
-
-minimal-racket じゃなく、DrRacket っていろいろ詰め込んだアプリもあるんだが、
-そっちなら楽なのかな？昔はオレも DrRacket 使ってた。
-プログラム打ち込むエディタまで含めた IDE と思っていい。
-でも、プログラム作成に VScode 使いたい。
-そういう人には次の VScode DevContaier がいいかも。
-
-### VScode DevContainer
-
-DockerDesktop が Mac にインストールされているって前提で。
-
-https://github.com/hkim0331/tls.git に racket のコンテナ作ったんで、
-クローンし、VScode で開く。
-
-```
-% git clone https://github.com/hkim0331/tls.git
-% cd tls
-% code .
-```
-
-「DevContainer で開き直しますか」みたいに聞かれるので、そのまま YES.
-
-Docker イメージのダウンロードに時間はかかるが、最初の一回だけ。あとは簡単。
-こっちだと mac に racket 入れる必要ない。コンテナに入ってるから。
-
-### Windows だと？
-
-Windows に直接 Racket 入れるもできるが、WSL 使うのがいい。
-
-WSL で ubuntu 入れておき、
-
-```
-$ sudo apt install racket
-```
-
-で racket 入るんで、そのあと、
-
-```
-$ code .
-```
-
-必要なライブラリ(例えば racket-langsever)は、
-
-```
-$ raco pkg install racket-langserver
-```
-で。
-
-もちろん、WSL で Docker やってもよい。
-Windows に DockerDesktop って選択もあるけど、
-WSL に Docker の方がおすすめ。
-なぜかっつうと、Windows に DockerDesktop のインストールに何度か失敗、
-あきらめたんで。
+- hkimura はどう racket してるか？
 
 
 ### 準備が大変？
@@ -156,15 +71,8 @@ WSL に Docker の方がおすすめ。
 紙と鉛筆でプログラミングをとことん考えようってのが基本だ。
 行けるさ。
 
-### (deprecated) doc フォルダに
+### doc フォルダと src フォルダ
 
 この後、doc フォルダに資料書き足していきます。
 
-
-## src フォルダに scheme のコードと解説
-
-the little schemer をなぞるコードのほかのコードもそこに置きます。
-
-解説は doc フォルダに分けて書く予定だったけど、めんどくさいんで、
-コメント文で src フォルダ中のファイルに書きます。
-マークダウンで強調とか効かん。でも、見かけより内容だ。
+src フォルダには the little schemer をなぞるコードをそこに置きます。
