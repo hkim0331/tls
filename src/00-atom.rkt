@@ -1,10 +1,12 @@
 #lang racket/base
 
-(provide atom?)
+(provide atom? nil)
 
 (define atom?
  (lambda (x)
   (and (not (pair? x)) (not (null? x)))))
+
+(define nil '())
 
 ; (atom? 1)
 ; (atom? '())
