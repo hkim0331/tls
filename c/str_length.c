@@ -1,7 +1,6 @@
 /*
 文字列 s の長さを返す。そしてプリント。
 */
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -33,7 +32,7 @@ int str_length(char *s) {
   for (int i = 0; s[i] != '\0'; i++) {
     ;
   }
-  return i;
+  return i;  // error
 }
 */
 
