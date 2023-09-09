@@ -1,8 +1,16 @@
+/*
+$ cc all_small.c
+$ ./a.out small_letters
+small_letters: yes
+$ ./a.out Include_Large_Chars
+Include_Large_Chars: no
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
 int is_small(char c) {
-  return 'a'<=c && c <= 'z';
+  return c=='_' || ('a'<=c && c <= 'z');
 }
 
 int all_smalls(char *s) {
