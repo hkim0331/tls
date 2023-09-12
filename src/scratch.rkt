@@ -39,3 +39,11 @@
              (tarai (dec z) x y)))))
 
 ;; (my-time (tarai 10 5 0))
+
+(null? '(1 2 3))
+
+(define add
+  (lambda (🫑 b)
+    (+ 🫑 b)))
+
+(add 4 5)
