@@ -14,6 +14,21 @@
 ```
 % docker run -it --rm -p 8000:8000 --mount type=bind,source="$(pwd)",target=/workspace hkim0331/racket bash
 ```
+
+<<<<<<< HEAD
+## 0.4.8-snapshot
+- ~/Library/Application Support/Code/User/settings.json
+  false にしないとクラッシュってうるさい。
+
+      "magicRacket.languageServer.enabled": false,
+=======
+## 0.4.8 - 2023-09-09
+### Added
+- doc/2023-09-08.md
+- src/2023-09-08.rkt
+- c/all_smalls.c
+>>>>>>> edaa7dd6b1e98e45a00bc35d0598b3d151f42a29
+
 ## 0.4.7 - 2023-09-06
 - docker image hkim0331/racket:0.3
 
